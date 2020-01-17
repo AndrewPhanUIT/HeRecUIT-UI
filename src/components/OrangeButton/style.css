@@ -1,0 +1,13 @@
+.orange-button{
+    background-color: #ff8c00;
+    color: white;
+    padding: 10px 20px;
+    height: auto;
+    font-weight: 700;
+    border: none;
+    outline: none;
+}
+
+.full-width{
+    width: 100%;
+}
