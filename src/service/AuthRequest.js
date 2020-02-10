@@ -18,3 +18,13 @@ export const signUp = (signUpRequest) => {
         body: JSON.stringify(signUpRequest)
     });
 }
+
+export const test = json => {
+    let tempJson = JSON.stringify(json) + "";
+    let temp = tempJson.replace(/\\n\s*/g, '');
+    temp = temp.replace(/\\"\s*/g, '"');
+    return fetch(API_BASE_URL + API_PUBLIC_URL.test, {
+        method: 'POST',
+        body: temp
+    }).then(res=>res.json);
+}

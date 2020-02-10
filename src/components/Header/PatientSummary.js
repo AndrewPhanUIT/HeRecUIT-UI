@@ -25,15 +25,15 @@ function PatientSummary() {
                         />
 
                         <Media.Body className="pt-3">
-                            <p><b>Ngày sinh:</b> 05/10/1997 - 22 tuổi</p>
+                            <p><b>Ngày sinh:</b> 01/01/1997 - 23 tuổi</p>
                             <p><b>Giới tính:</b> Nam</p>
                         </Media.Body>
                     </Media>
                 </section>
 
                 <section className="col-12 col-md-6 col-lg-4 pt-3">
-                    <p><b>Số điện thoại:</b> 0783550324</p>
-                    <p><b>Địa chỉ:</b> Lê Thánh Tôn - Quận 1</p>
+                    <p><b>Số điện thoại:</b> 0123456789</p>
+                    <p><b>Địa chỉ:</b> Quận Tân Phú - Thành Phố Hồ Chí Minh</p>
                 </section>
 
                 <section className="col-12 col-md-12 col-lg-4 pt-3">

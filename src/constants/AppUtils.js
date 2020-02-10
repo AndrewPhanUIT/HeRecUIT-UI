@@ -1,4 +1,5 @@
 import {ACCESS_TOKEN, MONTH_NAME} from './../constants/constants';
+import { QUAN12_DIAGNOSIS, QUAN12_APPOINTMENT, TANPHU_DIAGNOSIS, TANPHU_APPOINTMENT } from '../mockup';
 
 export const request = (options) => {
     const headers = new Headers({
@@ -11,9 +12,6 @@ export const request = (options) => {
 
     let defaults = {headers};
     options = Object.assign({}, defaults, options);
-    
-    console.log(options);
-
     return fetch(options.url, options)
         .then(res => res.json().then(json => {
             if(!res.ok){
@@ -46,4 +44,11 @@ export const mapMenuKeyToUrlParam = (key) => {
         key === 2 ? '/patient-info/appointment' :
         key === 3 ? '/patient-info/diagnosis' :
         key === 4 ? '/permission' : '';
+}
+
+export const mapOrgTypeWithData = (org, type) => {
+    return org === 'quan12' && type === 'diagnosis' ? QUAN12_DIAGNOSIS :
+        org === 'tanphu' && type === 'diagnosis' ? TANPHU_DIAGNOSIS :
+        org === 'quan12' && type === 'appointment' ? QUAN12_APPOINTMENT :
+        org === 'tanphu' && type === 'appointment' ? TANPHU_APPOINTMENT : '';
 }

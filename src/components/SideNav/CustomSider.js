@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {Layout, Menu, Icon} from 'antd';
 import PropTypes from 'prop-types';
 import { mapMenuKeyToUrlParam } from '../../constants/AppUtils';
@@ -12,10 +12,10 @@ function CustomSider({
     history
 }) {
 
-    const { state, setState } = useState({
+    const [state, setState] = useState({
         menuKey: '1'
     });
-    
+
     const onCollapse = () => {
         handleCollapse(!collapsed);
     }
@@ -30,11 +30,11 @@ function CustomSider({
     });
 
     const navToNewPage = (key) => {
+        setState({
+            menuKey: key,
+        });
         const urlParam = mapMenuKeyToUrlParam(+key);
         history.push(urlParam);
-        setState({
-            menuKey: key
-        });
     }
 
     return (
@@ -45,7 +45,7 @@ function CustomSider({
             collapsible
             collapsed={collapsed}
             onCollapse={onCollapse}>
-            <Menu theme="light" onClick={(e)=>navToNewPage(e.key)} mode="inline" selectedKeys={[`1`]} >
+            <Menu theme="light" onClick={(e)=>navToNewPage(e.key)} mode="inline" selectedKeys={[`${state.menuKey}`]} >
                 {listMenu}
             </Menu>
         </Sider>

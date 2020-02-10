@@ -5,6 +5,8 @@ import Wrapper from './Wrapper';
 import Helmet from 'react-helmet';
 import { Switch, Route, useRouteMatch } from 'react-router';
 import AllDetail from '../AllDetail';
+import Appointment from '../Appointment';
+import Diagnosis from '../Diagnosis';
 import CustomModal from '../../components/Modal';
 import MedicalRecord from '../MedicalRecord';
 
@@ -23,12 +25,14 @@ function PatientInfo(){
                 <SideNav>
                     <Switch>
                         <Route exact path={path} component={AllDetail}/>
+                        <Route exact path={`${path}/appointment`} component={Appointment}/>
+                        <Route exact path={`${path}/diagnosis`} component={Diagnosis}/>
                     </Switch>
                     
                 </SideNav>
             </Wrapper>
 
-            <CustomModal show={false} title='Modal for medical record'>
+            <CustomModal show={false} title='Thông tin khám sức khỏe'>
                 <MedicalRecord />
             </CustomModal>
         </React.Fragment>

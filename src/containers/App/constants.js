@@ -23,7 +23,7 @@ export const PATIENT_MENU = [
     },{
         key: 3,
         iconType: 'container',
-        title: 'Kết quả điều trị',
+        title: 'Kết quả khám bệnh',
         link: ''
     },{
         key: 4,

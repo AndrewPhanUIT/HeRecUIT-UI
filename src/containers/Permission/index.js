@@ -11,14 +11,13 @@ function Permission ({
     return(
         <React.Fragment>
             <Helmet>
-                <title>Phân quyền người dùng</title>
+                <title>Phân quyền bệnh viện</title>
             </Helmet>
             <Header />
             
             <Wrapper>
                 <SideNav>
                     <WidgetTable />
-                    
                 </SideNav>
             </Wrapper>
         </React.Fragment>

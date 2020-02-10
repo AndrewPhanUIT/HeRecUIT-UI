@@ -25,10 +25,12 @@ const baseConfig = [
 
 const dataSource = [
     {
+        key: 'quan12',
         organization: 'Bệnh viện quận 12',
         permission: true
     },
     {
+        key: 'tanphu',
         organization: 'Bệnh viện quận Tân Phú',
         permission: false
     }

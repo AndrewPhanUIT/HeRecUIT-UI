@@ -1,5 +1,5 @@
 import React from 'react';
-import { PILL_ICON, PHONE_ICON } from '../../images/static';
+import { PILL_ICON } from '../../images/static';
 import Summary from '../../components/Sumamry';
 
 const tempData = [
@@ -29,27 +29,9 @@ const tempData = [
             text: 'Bùi Nguyễn Minh Tâm'
         }
     },
-    {
-        src: PHONE_ICON,
-        title: 'Phiếu hẹn thực hiện phẫu thuật',
-        createdAt: '04/1/2020',
-        isExpired: true,
-        location: {
-            title: 'Địa điểm: ',
-            text: 'Khoa Tai Mũi Họng - Bệnh viện quận Tân Phú'
-        },
-        docter: {
-            title: 'Bác sĩ: ',
-            text: 'Khoa Tai Mũi Họng'
-        },
-        appointmentDate: {
-            title: 'Ngày hẹn: ',
-            text: '20/01/2020'
-        }
-    },
 ]
 
-function AllDetail() {
+function Diagnosis() {
     return (
         <div>
             {
@@ -61,4 +43,4 @@ function AllDetail() {
     )
 }
 
-export default AllDetail;
+export default Diagnosis;

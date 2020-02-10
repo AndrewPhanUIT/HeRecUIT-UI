@@ -30,7 +30,7 @@ class Summary extends React.Component {
         let lst = [];
         let i = 1;
         Object.keys(data).forEach(key => {
-            if(key !== 'src' && key !== 'title' &&  key !== 'createdAt' ){
+            if(key !== 'src' && key !== 'title' &&  key !== 'createdAt' && key !== 'isExpired' ){
                 lst.push(
                     <P key={i}>
                         <b>{data[key].title}</b>
@@ -63,14 +63,7 @@ class Summary extends React.Component {
     
                             <Media.Body>
                                 <H5>{data.title}</H5>
-    
-                                {/* <P>
-                                    <b>Địa điểm: </b>
-                                    Bệnh viện Thủ Đức, khoa tai mũi họng</P>
-                                <P>
-                                    <b>Bác sĩ: </b>
-                                    Phan Thế Anh</P> */}
-                                    {this.createOtherInfo()}
+                                {this.createOtherInfo()}
                             </Media.Body>
                         </Media>
                     </section>
@@ -80,6 +73,13 @@ class Summary extends React.Component {
                             <b>Ngày tạo: </b>
                             {data.createdAt}</P>
                         <OrangeButton text="Chi tiết"/>
+                        {
+                            data.isExpired && (
+                                data.isExpired ? (
+                                    <div><br/><b>Đã hết hạn</b></div>
+                                ) : <span></span>
+                            )
+                        }
                     </section>
                 </section>
             </Wrapper>
