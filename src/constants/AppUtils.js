@@ -2,16 +2,33 @@ import {ACCESS_TOKEN, MONTH_NAME, TOKEN_TYPE} from './../constants/constants';
 import { QUAN12_DIAGNOSIS, QUAN12_APPOINTMENT, TANPHU_DIAGNOSIS, TANPHU_APPOINTMENT } from '../mockup';
 
 export const request = (options) => {
-    const headers = new Headers({
+    let headers = {
         'Content-Type': 'application/json'
-    });
+    };
 
     if(sessionStorage.getItem(ACCESS_TOKEN)){
-        headers.append('Authorization',  TOKEN_TYPE , sessionStorage.getItem(ACCESS_TOKEN));
+        headers = {
+            ...headers,
+            "Authorization": TOKEN_TYPE + sessionStorage.getItem(ACCESS_TOKEN),
+        };
     }
 
     let defaults = {headers};
-    options = Object.assign({}, defaults, options);
+    options = { ...defaults, ...options};
+
+    if (options.method === 'GET') {
+        return fetch(options.url, {
+            headers
+        }).then(res => {
+                if(res.ok) {
+                    return res.json();
+                }
+                return {
+                    errorStatus: res.status,
+                };
+            }).catch(err => ({errorStatus: err.status}))
+    }
+
     return fetch(options.url, options)
         .then(res => {
             if(res.ok) {
@@ -25,11 +42,20 @@ export const request = (options) => {
 
 
 export const formatDate = (dateString) => {
-    let date = new Date(dateString);
-    let monthIndex = date.getMonth();
-    let year = date.getFullYear();
+    var pattern = /(\d{4})(\d{2})(\d{2})/;
+    var dt = new Date(dateString.replace(pattern,'$1-$2-$3'));
+    return dt.getDate() + "/" + (dt.getMonth() + 1) + "/" + dt.getFullYear();
+}
 
-    return MONTH_NAME[monthIndex] + ' ' + year;
+export const isExpired = (dateString) => {
+    var pattern = /(\d{4})(\d{2})(\d{2})/;
+    var dt = new Date(dateString.replace(pattern,'$1-$2-$3'));
+
+    var curDate = new Date();
+    if(curDate.getTime() > dt.getTime) {
+        return true;
+    }
+    return false;
 }
 
 export const formatDateTime = (dateTimeString) => {

@@ -1,4 +1,5 @@
 export const ACCESS_TOKEN = 'herec_token';
+export const USER_INFO = "session/user-info";
 export const TOKEN_TYPE = "Herec ";
 export const BASE_LINK = 'http://localhost:3000';
 export const SPLASH = '/';

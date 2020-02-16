@@ -9,6 +9,9 @@ import Appointment from '../Appointment';
 import Diagnosis from '../Diagnosis';
 import CustomModal from '../../components/Modal';
 import MedicalRecord from '../MedicalRecord';
+import { selectDiagnosisLoading, selectAppointmentsLoading } from '../App/selectors';
+import { createStructuredSelector } from 'reselect';
+import { connect } from 'react-redux';
 
 function PatientInfo(){
 
@@ -39,4 +42,9 @@ function PatientInfo(){
     )
 }
 
-export default PatientInfo;
+const mapStateToProps = createStructuredSelector({
+    diagnosisLoading: selectDiagnosisLoading(),
+    appointmentsLoading: selectAppointmentsLoading(),
+})
+
+export default connect(mapStateToProps)(PatientInfo);

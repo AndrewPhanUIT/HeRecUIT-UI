@@ -11,6 +11,7 @@ import {login, register} from '../App/actions';
 import { selectUserLoading, selectUserInfo, selectUserErrorStatus } from '../App/selectors';
 import { createStructuredSelector } from 'reselect';
 import { message } from 'antd';
+import { withRouter } from 'react-router';
 
 
 const ContentWrapper = styled.section `
@@ -24,20 +25,21 @@ class Authorization extends Component {
     }
 
     componentDidMount() {
-        const { userInfo } = this.props;
+        const { userInfo, history } = this.props;
         if(userInfo ) {
-            window.location = '/patient-info';
+            // window.location = '/patient-info';
+            history.push('/patient-info');
         }
     }
 
     componentDidUpdate(prevProps, prevState) {
         const { userInfo: prevUserInfo} = prevProps;
-        const { userInfo, userInfoErrorStatus } = this.props;
+        const { userInfo, userInfoErrorStatus, history } = this.props;
         if(userInfoErrorStatus && userInfo && userInfoErrorStatus === 200) {
             message.info('Đăng nhập thành công');
         }
         if(!prevUserInfo && userInfo ) {
-            window.location = '/patient-info';
+            history.push('/patient-info');
         }
         if(userInfoErrorStatus && userInfoErrorStatus !== 200) {
             message.error('Vui lòng kiểm tra lại số điện thoại và mật khẩu!');
@@ -85,4 +87,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Authorization);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter (Authorization));

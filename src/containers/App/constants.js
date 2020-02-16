@@ -6,6 +6,18 @@ export const REGISTER = "herec/REGISTER";
 export const REGISTER_SUCCESS = "herec/REGISTER_SUCCESS";
 export const REGISTER_ERROR = "herec/REGISTER_ERROR";
 
+export const QUERY = "herec/QUERY";
+export const QUERY_SUCCESS = "herec/QUERY_SUCCESS";
+export const QUERY_ERROR = "herec/QUERY_ERROR";
+
+export const QUERY_DIAGNOSIS = "herec/QUERY_DIAGNOSIS";
+export const QUERY_DIAGNOSIS_SUCCESS = "herec/QUERY_DIAGNOSIS_SUCCESS";
+export const QUERY_DIAGNOSIS_ERROR = "herec/QUERY_DIAGNOSIS_ERROR";
+
+export const QUERY_APPOINTMENTS = "herec/QUERY_APPOINTMENTS";
+export const QUERY_APPOINTMENTS_SUCCESS = "herec/QUERY_APPOINTMENTS_SUCCESS";
+export const QUERY_APPOINTMENTS_ERROR = "herec/QUERY_APPOINTMENTS_ERROR";
+
 
 export const REGEX = {
     email: /^[a-z][a-z0-9_]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/,

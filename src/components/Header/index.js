@@ -12,6 +12,7 @@ import If from '../If';
 import { QUAN12_DIAGNOSIS, QUAN12_APPOINTMENT } from '../../mockup';
 import { test } from '../../service/AuthRequest';
 import { mapOrgTypeWithData } from '../../constants/AppUtils';
+import { ACCESS_TOKEN } from '../../constants/constants';
 
 function Header({
     patientName,
@@ -74,6 +75,10 @@ function Header({
             org: e.target.value,
             data: mapOrgTypeWithData(e.target.value, state.type),
         });
+    }
+
+    if(!sessionStorage.getItem(ACCESS_TOKEN)) {
+        window.location = '/login';
     }
 
     return (
