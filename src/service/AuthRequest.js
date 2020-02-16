@@ -1,21 +1,20 @@
-
 import {request} from '../constants/AppUtils';
-import {API_PUBLIC_URL} from '../constants/ApiConstants';
-import { API_BASE_URL } from './../constants/ApiConstants';
+import {API_PUBLIC_URL, API_BASE_URL} from '../constants/ApiConstants';
 
-export const login = (loginRequest) => {
-    return request({
-        url: API_BASE_URL + API_PUBLIC_URL.loginCandidate,
+export const loginRequest = (loginForm) => {
+    const resp = request({
+        url: API_BASE_URL + API_PUBLIC_URL.login,
         method: 'POST',
-        body: JSON.stringify(loginRequest)
-    })
+        body: JSON.stringify(loginForm)
+    });
+    return resp;
 }
 
-export const signUp = (signUpRequest) => {
+export const registerRequest = (registerForm) => {
     return request({
-        url: API_BASE_URL + API_PUBLIC_URL.signUpCandidate,
+        url: API_BASE_URL + API_PUBLIC_URL.register,
         method: 'POST',
-        body: JSON.stringify(signUpRequest)
+        body: JSON.stringify(registerForm)
     });
 }
 
@@ -26,5 +25,5 @@ export const test = json => {
     return fetch(API_BASE_URL + API_PUBLIC_URL.test, {
         method: 'POST',
         body: temp
-    }).then(res=>res.json);
+    }).then(res => res.json);
 }

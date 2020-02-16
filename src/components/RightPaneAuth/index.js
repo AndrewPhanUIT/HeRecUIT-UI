@@ -7,13 +7,22 @@ import './styles.scss';
 import If from '../If';
 import LoginFormWrapper from '../LoginForm';
 import Wrapper from './Wrapper';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+
+import {
+    selectUserLoading,
+} from '../../containers/App/selectors';
 
 const WrapperBody = styled.section`
      margin-top: 30px;
 `;
 
 function RightPaneAuth({
-    type
+    doLogin,
+    doRegister,
+    type,
+    userInfoLoading,
 }){
     return (
         <Wrapper>
@@ -37,7 +46,7 @@ function RightPaneAuth({
 
            <WrapperBody>
                <If condition={type === 'login'}>
-                    <LoginFormWrapper />
+                    <LoginFormWrapper loginRequest={doLogin} isLoading={userInfoLoading}/>
                </If>
 
                <If condition={type === 'register'}>
@@ -50,11 +59,18 @@ function RightPaneAuth({
 }
 
 RightPaneAuth.propTypes = {
-    type: PropTypes.string.isRequired
-}
+    type: PropTypes.string.isRequired,
+    doLogin: PropTypes.func,
+    doRegister: PropTypes.func,
+    userInfoLoading: PropTypes.bool,
+};
 
 RightPaneAuth.defaultTypes = {
     type: 'login'
 }
 
-export default RightPaneAuth;
+const mapStateToProps = createStructuredSelector({
+    userInfoLoading: selectUserLoading(),
+});
+
+export default connect(mapStateToProps) (RightPaneAuth);

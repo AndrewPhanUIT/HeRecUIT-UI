@@ -1,9 +1,8 @@
 import { combineReducers } from "redux";
 import globalReducer from './containers/App/reducer';
 
-const createReducer = () => 
-    combineReducers({
-        global: globalReducer
-    });
+const rootReducer = combineReducers({
+    globalReducer,
+});
 
-export default createReducer;
+export default rootReducer;

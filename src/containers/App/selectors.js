@@ -2,15 +2,31 @@ import { createSelector } from "reselect"
 
 import {initialState} from './reducer';
 
-const selectGlobal = () => state => state.global || initialState;
+const selectGlobal = state => {
+    return state.globalReducer || initialState;
+};
 
-const makeUserInfoSelector = () => 
+const selectUserInfo = () => 
     createSelector(
         selectGlobal,
-        globalState => globalState.userInfo
+        global => global.userInfo,
+    );
+
+const selectUserLoading = () => 
+    createSelector(
+        selectGlobal,
+        global => global.userInfoLoading,
+    );
+
+const selectUserErrorStatus = () => 
+    createSelector(
+        selectGlobal,
+        global => global.userInfoErrorStatus,
     );
 
 export {
     selectGlobal,
-    makeUserInfoSelector
-}
+    selectUserInfo,
+    selectUserLoading,
+    selectUserErrorStatus,
+};

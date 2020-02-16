@@ -1,4 +1,4 @@
-import {ACCESS_TOKEN, MONTH_NAME} from './../constants/constants';
+import {ACCESS_TOKEN, MONTH_NAME, TOKEN_TYPE} from './../constants/constants';
 import { QUAN12_DIAGNOSIS, QUAN12_APPOINTMENT, TANPHU_DIAGNOSIS, TANPHU_APPOINTMENT } from '../mockup';
 
 export const request = (options) => {
@@ -7,19 +7,20 @@ export const request = (options) => {
     });
 
     if(sessionStorage.getItem(ACCESS_TOKEN)){
-        headers.append('Authorization', 'TopFactors ', sessionStorage.getItem(ACCESS_TOKEN));
+        headers.append('Authorization',  TOKEN_TYPE , sessionStorage.getItem(ACCESS_TOKEN));
     }
 
     let defaults = {headers};
     options = Object.assign({}, defaults, options);
     return fetch(options.url, options)
-        .then(res => res.json().then(json => {
-            if(!res.ok){
-                return Promise.reject(json);
+        .then(res => {
+            if(res.ok) {
+                return res.json();
             }
-
-            return json;
-        }));
+            return {
+                errorStatus: res.status
+            };
+        }).catch(err => ({errorStatus: err.status}));
 }
 
 

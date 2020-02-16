@@ -1,5 +1,5 @@
-export const ACCESS_TOKEN = 'tf_token';
-
+export const ACCESS_TOKEN = 'herec_token';
+export const TOKEN_TYPE = "Herec ";
 export const BASE_LINK = 'http://localhost:3000';
 export const SPLASH = '/';
 

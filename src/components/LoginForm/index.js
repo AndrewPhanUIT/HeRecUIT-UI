@@ -12,14 +12,15 @@ const LinkWrapper = styled.section`
 
 function LoginForm({
     form,
-    handleSubmit
+    loginRequest,
+    isLoading,
 }){
 
     const submitLoginForm = (e) => {
         e.preventDefault();
         form.validateFields((err, value)=>{
             if(!err){
-                handleSubmit(value);
+                loginRequest(value.usernameOrPhoneNumber, value.password);
             }
         });
     }
@@ -56,7 +57,7 @@ function LoginForm({
             </Form.Item>
 
             <Form.Item>
-                <OrangeButton fullWidth={true} onClick={()=>{}} htmlType="submit" text="ĐĂNG NHẬP"/>
+                <OrangeButton fullWidth={true} onClick={()=>{}} htmlType="submit" text="ĐĂNG NHẬP" isLoading={isLoading} />
                 
                 <LinkWrapper>
                     <Link href="/reset-password">Quên mật khẩu</Link>
@@ -69,8 +70,13 @@ function LoginForm({
 
 LoginForm.propTypes = {
     form: PropTypes.object,
-    handleSubmit: PropTypes.func
+    handleSubmit: PropTypes.func,
+    isLoading: PropTypes.bool.isRequired,
 };
+
+LoginForm.defaultProps = {
+    isLoading: false,
+}
 
 const LoginFormWrapper = Form.create({name: 'login-form'})(LoginForm);
 export default LoginFormWrapper;

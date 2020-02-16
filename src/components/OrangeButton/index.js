@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'antd';
+import { Button, Spin } from 'antd';
 
 import './style.css';
 
@@ -8,12 +8,16 @@ function OrangeButton({
     text,
     onClick,
     htmlType,
-    fullWidth
+    fullWidth,
+    isLoading
 }) {
+
     return (
-        <Button className={`orange-button ${fullWidth ? "full-width" : ""}`} htmlType={htmlType} onClick={onClick}>
-            {text}
-        </Button>
+        <Spin spinning={isLoading}>
+            <Button className={`orange-button ${fullWidth ? "full-width" : ""}`} htmlType={htmlType} onClick={onClick}>
+                {text}
+            </Button>
+        </Spin>
     )
 }
 
@@ -21,12 +25,14 @@ OrangeButton.propTypes = {
     text: PropTypes.string.isRequired,
     onClick: PropTypes.func,
     htmlType: PropTypes.string,
-    fullWidth: PropTypes.bool
+    fullWidth: PropTypes.bool,
+    isLoading: PropTypes.bool.isRequired,
 }
 
-OrangeButton.defaultTypes = {
+OrangeButton.defaultProps = {
     text: "",
-    fullWidth: false
+    fullWidth: false,
+    isLoading: false,
 }
 
 export default OrangeButton;
