@@ -52,7 +52,7 @@ export const isExpired = (dateString) => {
     var dt = new Date(dateString.replace(pattern,'$1-$2-$3'));
 
     var curDate = new Date();
-    if(curDate.getTime() > dt.getTime) {
+    if(curDate.getTime() > dt.getTime()) {
         return true;
     }
     return false;

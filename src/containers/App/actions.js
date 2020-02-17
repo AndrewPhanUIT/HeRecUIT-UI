@@ -13,7 +13,16 @@ import {
     QUERY_DIAGNOSIS_ERROR,
     QUERY_APPOINTMENTS,
     QUERY_APPOINTMENTS_SUCCESS,
-    QUERY_APPOINTMENTS_ERROR
+    QUERY_APPOINTMENTS_ERROR,
+    QUERY_PERMISSION,
+    QUERY_PERMISSION_SUCCESS,
+    QUERY_PERMISSION_ERROR,
+    QUERY_DIAGNOSIS_DETAIL,
+    QUERY_DIAGNOSIS_DETAIL_SUCCESS,
+    QUERY_DIAGNOSIS_DETAIL_ERROR,
+    QUERY_APPOINTMENT_DETAIL,
+    QUERY_APPOINTMENT_DETAIL_SUCCESS,
+    QUERY_APPOINTMENT_DETAIL_ERROR,
 } from './constants';
 
 // Login
@@ -89,4 +98,40 @@ export const queryAppointmentsSuccess = (appointments) => {
 
 export const queryAppointmentsError = (error) => {
     return {type: QUERY_APPOINTMENTS_ERROR, error};
+}
+
+export const queryPermission = (phoneNumber) => {
+    return {type: QUERY_PERMISSION, phoneNumber}
+}
+
+export const queryPermissionSuccess = (permissions) => {
+    return {type: QUERY_PERMISSION_SUCCESS, permissions};
+}
+
+export const queryPermissionError = (error) => {
+    return {type: QUERY_PERMISSION_ERROR, error};
+}
+
+export const queryDiagnosisDetail = (hyperledgerName, key) => {
+    return {type: QUERY_DIAGNOSIS_DETAIL, hyperledgerName, key};
+}
+
+export const queryDiagnosisDetailSuccess = (diagnosisDetail) => {
+    return {type: QUERY_DIAGNOSIS_DETAIL_SUCCESS, diagnosisDetail};
+}
+
+export const queryDiagnosisError = (error) => {
+    return {type: QUERY_DIAGNOSIS_DETAIL_ERROR, error};
+}
+
+export const queryAppointmentDetail = (hyperledgerName, key) => {
+    return {type: QUERY_APPOINTMENT_DETAIL, hyperledgerName, key};
+}
+
+export const queryAppointmentDetailSuccess = (appointmentDetail) => {
+    return {type: QUERY_APPOINTMENT_DETAIL_SUCCESS, appointmentDetail};
+}
+
+export const queryAppointmentError = (error) => {
+    return {type: QUERY_APPOINTMENT_DETAIL_ERROR, error};
 }

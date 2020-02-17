@@ -20,6 +20,11 @@ const selectAppointments = () => createSelector(selectGlobal, global => global.a
 
 const selectAppointmentsLoading = () => createSelector(selectGlobal, global => global.appointmentsLoading,);
 
+const selectPermission = () => createSelector(selectGlobal, global => global.permissions,);
+
+const selectPermissionLoading = () => createSelector(selectGlobal, global => global.permissionsLoading,);
+
+
 export {
     selectGlobal,
     selectUserInfo,
@@ -28,5 +33,7 @@ export {
     selectDiagnosis,
     selectDiagnosisLoading,
     selectAppointments,
-    selectAppointmentsLoading
+    selectAppointmentsLoading,
+    selectPermission,
+    selectPermissionLoading,
 };

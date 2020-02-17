@@ -8,6 +8,7 @@ export const API_PUBLIC_URL = {
     queryDiagnosis: '/api/hyperledger/all/diagnosis?hyperledgerName=',
     queryAppointments: '/api/hyperledger/all/appointment?hyperledgerName=',
     test: '/api/auth/test',
+    queryPermission: '/api/hyperledger/permission?phoneNumber=',
 }
 
 export const API_SECUSE_URL = {

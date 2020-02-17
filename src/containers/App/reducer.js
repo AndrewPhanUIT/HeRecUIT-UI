@@ -16,6 +16,9 @@ import {
     QUERY_APPOINTMENTS,
     QUERY_APPOINTMENTS_SUCCESS,
     QUERY_APPOINTMENTS_ERROR,
+    QUERY_PERMISSION,
+    QUERY_PERMISSION_SUCCESS,
+    QUERY_PERMISSION_ERROR,
 } from './constants';
 import {ACCESS_TOKEN, USER_INFO} from "../../constants/constants";
 
@@ -27,6 +30,8 @@ export const initialState = {
     diagnosisLoading: false,
     appointments: [],
     appointmentsLoading: false,
+    permissions: [],
+    permissionsLoading: false,
     error: ''
 };
 
@@ -156,6 +161,31 @@ const globalState = (state = initialState, action) => {
                     ...state,
                     appointments: [],
                     appointmentsLoading: false,
+                    error: action.error
+                }
+            }
+        case QUERY_PERMISSION:
+            {
+                return {
+                    ...state,
+                    permissions: [],
+                    permissionsLoading: true
+                }
+            }
+        case QUERY_PERMISSION_SUCCESS:
+            {
+                return {
+                    ...state,
+                    permissions: action.permissions,
+                    permissionsLoading: false
+                }
+            }
+        case QUERY_PERMISSION_ERROR:
+            {
+                return {
+                    ...state,
+                    permissions: [],
+                    permissionsLoading: false,
                     error: action.error
                 }
             }

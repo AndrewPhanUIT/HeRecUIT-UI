@@ -1,14 +1,32 @@
-import { put, takeLatest, all, call, fork } from 'redux-saga/effects'
-import { LOGIN, REGISTER, QUERY, QUERY_DIAGNOSIS, QUERY_APPOINTMENTS } from './constants';
-import { loginRequest, registerRequest }  from '../../service/AuthRequest';
+import {put, takeLatest, all, call, fork} from 'redux-saga/effects'
 import {
-    loginSuccess, loginError, registerSuccess, registerError, queryError, querySuccess, queryDiagnosisSuccess, queryDiagnosisError, queryAppointmentsSuccess, queryAppointmentsError,
+    LOGIN,
+    REGISTER,
+    QUERY,
+    QUERY_DIAGNOSIS,
+    QUERY_APPOINTMENTS,
+    QUERY_PERMISSION
+} from './constants';
+import {loginRequest, registerRequest} from '../../service/AuthRequest';
+import {
+    loginSuccess,
+    loginError,
+    registerSuccess,
+    registerError,
+    queryError,
+    querySuccess,
+    queryDiagnosisSuccess,
+    queryDiagnosisError,
+    queryAppointmentsSuccess,
+    queryAppointmentsError,
+    queryPermissionSuccess,
+    queryPermissionError
 } from './actions';
-import { queryRequest, queryDiagnosisRequest, queryAppointmentsRequest } from '../../service/HyperledgerRequest';
+import {queryRequest, queryDiagnosisRequest, queryAppointmentsRequest, queryPermissionRequest} from '../../service/HyperledgerRequest';
 
 // Login
-function* doLogin(action) {
-    const { userInfo } = action;
+function * doLogin(action) {
+    const {userInfo} = action;
     const response = yield call(loginRequest, userInfo);
     if (response.success) {
         const userInfo = response.datas[0];
@@ -18,13 +36,13 @@ function* doLogin(action) {
     }
 }
 
-function* doLoginWatcher() {
+function * doLoginWatcher() {
     yield takeLatest(LOGIN, doLogin);
 }
 
 // Register
-function* doRegister(action) {
-    const { registerInfo } = action;
+function * doRegister(action) {
+    const {registerInfo} = action;
     const response = yield call(registerRequest, registerInfo);
     if (response.success) {
         yield put(registerSuccess());
@@ -33,14 +51,14 @@ function* doRegister(action) {
     }
 }
 
-function* doRegisterWatcher() {
+function * doRegisterWatcher() {
     yield takeLatest(REGISTER, doRegister);
 }
 
 // query
 
-function* doQuery(action) {
-    const { hyperledgerName } = action;
+function * doQuery(action) {
+    const {hyperledgerName} = action;
     const response = yield call(queryRequest, hyperledgerName);
     if (response.success) {
         const diagnosis = response.datas[0];
@@ -51,12 +69,12 @@ function* doQuery(action) {
     }
 }
 
-function* doQueryWatcher(){
+function * doQueryWatcher() {
     yield takeLatest(QUERY, doQuery);
 }
 
-function* doQueryDiagnosis(action) {
-    const { hyperledgerName } = action;
+function * doQueryDiagnosis(action) {
+    const {hyperledgerName} = action;
     const response = yield call(queryDiagnosisRequest, hyperledgerName);
     if (response.success) {
         const diagnosis = response.datas[0];
@@ -66,12 +84,12 @@ function* doQueryDiagnosis(action) {
     }
 }
 
-function* doQueryDiagnosisWatcher(){
+function * doQueryDiagnosisWatcher() {
     yield takeLatest(QUERY_DIAGNOSIS, doQueryDiagnosis);
 }
 
-function* doQueryAppointments(action) {
-    const { hyperledgerName } = action;
+function * doQueryAppointments(action) {
+    const {hyperledgerName} = action;
     const response = yield call(queryAppointmentsRequest, hyperledgerName);
     if (response.success) {
         const appointments = response.datas[0];
@@ -81,16 +99,32 @@ function* doQueryAppointments(action) {
     }
 }
 
-function* doQueryAppointmentsWatcher(){
+function * doQueryAppointmentsWatcher() {
     yield takeLatest(QUERY_APPOINTMENTS, doQueryAppointments);
 }
 
-export default function* rootSaga() {
+function * doQueryPermission(action) {
+    const {phoneNumber} = action;
+    const response = yield call(queryPermissionRequest, phoneNumber);
+    if (response.success) {
+        const permission = response.datas[0];
+        yield put(queryPermissionSuccess(permission));
+    } else {
+        yield put(queryPermissionError(response.message));
+    }
+}
+
+function * doQueryPermissionWatcher() {
+    yield takeLatest(QUERY_PERMISSION, doQueryPermission);
+}
+
+export default function * rootSaga() {
     yield all([
         fork(doLoginWatcher),
         fork(doRegisterWatcher),
         fork(doQueryWatcher),
         fork(doQueryDiagnosisWatcher),
         fork(doQueryAppointmentsWatcher),
+        fork(doQueryPermissionWatcher)
     ]);
 }

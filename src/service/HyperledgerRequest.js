@@ -27,3 +27,12 @@ export const queryAppointmentsRequest = (hyperledgerName) => {
     });
     return resp;
 }
+
+export const queryPermissionRequest = (phoneNumber) => {
+    const resp = request({
+        url: API_BASE_URL + API_PUBLIC_URL.queryPermission + phoneNumber,
+        method: 'GET',
+        body: '',
+    });
+    return resp;
+}

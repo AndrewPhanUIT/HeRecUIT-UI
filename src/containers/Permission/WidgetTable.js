@@ -1,52 +1,50 @@
-import React from 'react';
-import { useState } from 'react';
-import { Switch, Icon, Table } from 'antd';
+import React, { Component } from 'react';
+import { Switch, Icon, Table, Spin } from 'antd';
 
-const baseConfig = [
-    {
-        title: 'Bệnh viện / Phòng khám',
-        dataIndex: 'organization',
-        key: 'organization',
-        render: text => <a>{text}</a>,
-    },
-    {
-        title: 'Phân quyền',
-        key: 'permission',
-        dataIndex: 'permission',
-        render: permission => (
-            <Switch
-                checkedChildren={<Icon type="check" />}
-                unCheckedChildren={<Icon type="close" />}
-                defaultChecked={permission}
-            />
-        ),
-    }
-];
 
-const dataSource = [
-    {
-        key: 'quan12',
-        organization: 'Bệnh viện quận 12',
-        permission: true
-    },
-    {
-        key: 'tanphu',
-        organization: 'Bệnh viện quận Tân Phú',
-        permission: false
-    }
-  ];
 
-function WidgetTable ({
+class WidgetTable extends Component {
     
-}) {
+    constructor(props) {
+        super(props);
+        this.state = {
+            baseConfig: [
+                {
+                    title: 'Bệnh viện / Phòng khám',
+                    dataIndex: 'name',
+                    key: 'name',
+                    render: text => <a>{text}</a>,
+                },
+                {
+                    title: 'Phân quyền',
+                    key: 'permissioned',
+                    dataIndex: 'permissioned',
+                    render: (permissioned, record) => (
+                        <Switch
+                            onChange={(e)=>this.changeSwitch(e,record.orgName, permissioned)}
+                            checkedChildren={<Icon type="check" />}
+                            unCheckedChildren={<Icon type="close" />}
+                            defaultChecked={permissioned}
+                        />
+                    ),
+                }
+            ]
+        }
+    }
 
-    const { state, setState } = useState({});
+    changeSwitch = (e, orgName, permissioned) => {
+    }
 
-    return (
-        <React.Fragment>
-            <Table dataSource={dataSource} columns={baseConfig} />;
-        </React.Fragment>
-    );
+    render() {
+        const { data, isLoading } = this.props;
+        return (
+            <React.Fragment>
+                <Spin spinning={isLoading} tip="Đang tải dữ liệu..." size="large">
+                    <Table dataSource={data} columns={this.state.baseConfig} />;
+                </Spin>
+            </React.Fragment>
+        );
+    }
 }
 
 export default WidgetTable;
