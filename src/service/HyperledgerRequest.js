@@ -36,3 +36,21 @@ export const queryPermissionRequest = (phoneNumber) => {
     });
     return resp;
 }
+
+export const queryDiagnosisDetailRequest = (hyperledgerName, key) => {
+    const resp = request({
+        url: API_BASE_URL + API_PUBLIC_URL.queryDiagnosisDetail + `hyperledgerName=${hyperledgerName}&key=${key}`,
+        method: 'GET',
+        body: '',
+    });
+    return resp;
+}
+
+export const queryAppointmentDetailRequest = (hyperledgerName, key) => {
+    const resp = request({
+        url: API_BASE_URL + API_PUBLIC_URL.queryAppointmentDetail + `hyperledgerName=${hyperledgerName}&key=${key}`,
+        method: 'GET',
+        body: '',
+    });
+    return resp;
+}

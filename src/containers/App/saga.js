@@ -5,7 +5,9 @@ import {
     QUERY,
     QUERY_DIAGNOSIS,
     QUERY_APPOINTMENTS,
-    QUERY_PERMISSION
+    QUERY_PERMISSION,
+    QUERY_DIAGNOSIS_DETAIL,
+    QUERY_APPOINTMENT_DETAIL,
 } from './constants';
 import {loginRequest, registerRequest} from '../../service/AuthRequest';
 import {
@@ -20,9 +22,11 @@ import {
     queryAppointmentsSuccess,
     queryAppointmentsError,
     queryPermissionSuccess,
-    queryPermissionError
+    queryPermissionError,
+    queryDiagnosisDetailSuccess, queryDiagnosisDetailError,
+    queryAppointmentDetailSuccess, queryAppointmentDetailError,
 } from './actions';
-import {queryRequest, queryDiagnosisRequest, queryAppointmentsRequest, queryPermissionRequest} from '../../service/HyperledgerRequest';
+import {queryRequest, queryDiagnosisRequest, queryAppointmentsRequest, queryPermissionRequest, queryAppointmentDetailRequest, queryDiagnosisDetailRequest} from '../../service/HyperledgerRequest';
 
 // Login
 function * doLogin(action) {
@@ -118,6 +122,36 @@ function * doQueryPermissionWatcher() {
     yield takeLatest(QUERY_PERMISSION, doQueryPermission);
 }
 
+function * doQueryDiagnosisDetail(action) {
+    const {hyperledgerName, key} = action;
+    const response = yield call(queryDiagnosisDetailRequest, hyperledgerName,key);
+    if (response.success) {
+        const diagnosiDetail = response.datas[0];
+        yield put(queryDiagnosisDetailSuccess(diagnosiDetail));
+    } else {
+        yield put(queryDiagnosisDetailError(response.message));
+    }
+}
+
+function * doQueryDiagnosisDetailWatcher() {
+    yield takeLatest(QUERY_DIAGNOSIS_DETAIL, doQueryDiagnosisDetail);
+}
+
+function * doQueryAppointmentDetail(action) {
+    const {hyperledgerName, key} = action;
+    const response = yield call(queryAppointmentDetailRequest, hyperledgerName,key);
+    if (response.success) {
+        const diagnosiDetail = response.datas[0];
+        yield put(queryAppointmentDetailSuccess(diagnosiDetail));
+    } else {
+        yield put(queryAppointmentDetailError(response.message));
+    }
+}
+
+function * doQueryAppointmentDetailWatcher() {
+    yield takeLatest(QUERY_APPOINTMENT_DETAIL, doQueryAppointmentDetail);
+}
+
 export default function * rootSaga() {
     yield all([
         fork(doLoginWatcher),
@@ -125,6 +159,8 @@ export default function * rootSaga() {
         fork(doQueryWatcher),
         fork(doQueryDiagnosisWatcher),
         fork(doQueryAppointmentsWatcher),
-        fork(doQueryPermissionWatcher)
+        fork(doQueryPermissionWatcher),
+        fork(doQueryDiagnosisDetailWatcher),
+        fork(doQueryAppointmentDetailWatcher),
     ]);
 }

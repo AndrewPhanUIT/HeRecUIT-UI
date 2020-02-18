@@ -1,5 +1,3 @@
-import produce from "immer"
-
 import {
     LOGIN,
     LOGIN_SUCCESS,
@@ -19,6 +17,12 @@ import {
     QUERY_PERMISSION,
     QUERY_PERMISSION_SUCCESS,
     QUERY_PERMISSION_ERROR,
+    QUERY_APPOINTMENT_DETAIL,
+    QUERY_APPOINTMENT_DETAIL_SUCCESS,
+    QUERY_APPOINTMENT_DETAIL_ERROR,
+    QUERY_DIAGNOSIS_DETAIL,
+    QUERY_DIAGNOSIS_DETAIL_SUCCESS,
+    QUERY_DIAGNOSIS_DETAIL_ERROR,
 } from './constants';
 import {ACCESS_TOKEN, USER_INFO} from "../../constants/constants";
 
@@ -32,6 +36,10 @@ export const initialState = {
     appointmentsLoading: false,
     permissions: [],
     permissionsLoading: false,
+    diagnosisDetail: null,
+    diagnosisDetailLoading: false,
+    appointmentDetail: null,
+    appointmentDetailLoading: false,
     error: ''
 };
 
@@ -186,6 +194,56 @@ const globalState = (state = initialState, action) => {
                     ...state,
                     permissions: [],
                     permissionsLoading: false,
+                    error: action.error
+                }
+            }
+        case QUERY_DIAGNOSIS_DETAIL:
+            {
+                return {
+                    ...state,
+                    diagnosisDetail: null,
+                    diagnosisDetailLoading: true
+                }
+            }
+        case QUERY_DIAGNOSIS_DETAIL_SUCCESS:
+            {
+                return {
+                    ...state,
+                    diagnosisDetail: action.diagnosisDetail,
+                    diagnosisDetailLoading: false
+                }
+            }
+        case QUERY_DIAGNOSIS_DETAIL_ERROR:
+            {
+                return {
+                    ...state,
+                    diagnosisDetail: null,
+                    diagnosisDetailLoading: false,
+                    error: action.error
+                }
+            }
+        case QUERY_APPOINTMENT_DETAIL:
+            {
+                return {
+                    ...state,
+                    appointmentDetail: null,
+                    appointmentDetailLoading: true
+                }
+            }
+        case QUERY_APPOINTMENT_DETAIL_SUCCESS:
+            {
+                return {
+                    ...state,
+                    appointmentDetail: action.appointmentDetail,
+                    appointmentDetailLoading: false
+                }
+            }
+        case QUERY_APPOINTMENT_DETAIL_ERROR:
+            {
+                return {
+                    ...state,
+                    appointmentDetail: null,
+                    appointmentDetailLoading: false,
                     error: action.error
                 }
             }

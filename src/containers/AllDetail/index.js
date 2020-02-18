@@ -12,9 +12,6 @@ import {isEmpty} from 'lodash';
 import {formatDate, isExpired} from '../../constants/AppUtils';
 
 class AllDetail extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     componentDidMount() {
         const {query} = this.props;
@@ -72,23 +69,16 @@ class AllDetail extends Component {
         return result;
     }
 
+    renderList = (dianosisAndAppointments) => {
+        return dianosisAndAppointments.map((val, index) => {
+            return (<Summary key={index} data={val}/>)
+        });
+    }
+
     render() {
-        const {diagnosis, appointments, diagnosisLoading, appointmentsLoading} = this.props;
+        const {diagnosis, appointments} = this.props;
         const dianosisAndAppointments = this.transferInfo(diagnosis, appointments);
-        return (
-            <Spin
-                spinning={diagnosisLoading || appointmentsLoading}
-                tip="Đang tải dữ liệu..."
-                size="large"
-            >
-                <div>
-                    {dianosisAndAppointments.map((val, index) => {
-                        return (<Summary key={index} data={val}/>)
-                    })
-}
-                </div>
-            </Spin>
-        );
+        return <div>{this.renderList(dianosisAndAppointments)}</div>;
     }
 }
 

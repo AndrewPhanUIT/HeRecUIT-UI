@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import { PageHeader, Tag, Divider } from 'antd';
 import PropTypes from 'prop-types';
 
@@ -26,6 +26,7 @@ function Header({
         data: '',
         loading: false,
         rows: 25,
+        userInfo: null,
     });
     
     const createDemoDiagnosis = () => {
@@ -77,7 +78,7 @@ function Header({
         });
     }
 
-    if(!sessionStorage.getItem(ACCESS_TOKEN)) {
+    if (!sessionStorage.getItem(ACCESS_TOKEN)) {
         window.location = '/login';
     }
 
@@ -145,7 +146,7 @@ Header.propTypes = {
 };
 
 Header.defaultProps = {
-    patientName: "Vũ Mạnh Cường"
+    patientName: "Phan Thế Anh"
 }
 
 export default Header;

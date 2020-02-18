@@ -120,7 +120,7 @@ export const queryDiagnosisDetailSuccess = (diagnosisDetail) => {
     return {type: QUERY_DIAGNOSIS_DETAIL_SUCCESS, diagnosisDetail};
 }
 
-export const queryDiagnosisError = (error) => {
+export const queryDiagnosisDetailError = (error) => {
     return {type: QUERY_DIAGNOSIS_DETAIL_ERROR, error};
 }
 
@@ -132,6 +132,6 @@ export const queryAppointmentDetailSuccess = (appointmentDetail) => {
     return {type: QUERY_APPOINTMENT_DETAIL_SUCCESS, appointmentDetail};
 }
 
-export const queryAppointmentError = (error) => {
+export const queryAppointmentDetailError = (error) => {
     return {type: QUERY_APPOINTMENT_DETAIL_ERROR, error};
 }
