@@ -1,0 +1,10 @@
+{
+    "key": "A001",
+    "phoneNumber": "0783550324",
+    "appointment": {
+        "organization": "Bệnh viện quận 12",
+        "clincian": "Vũ Mạnh Cường@DT001",
+        "createdAt": "20200101",
+        "appointmentDate": "20200120"
+    }
+}

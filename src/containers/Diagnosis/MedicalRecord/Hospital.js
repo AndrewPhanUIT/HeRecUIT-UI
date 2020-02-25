@@ -1,17 +1,13 @@
 import React from 'react';
-import TitleRectangle from '../../components/TitleRectangle';
-import BlueTitle from '../../components/BlueTitle';
+import TitleRectangle from '../../../components/TitleRectangle';
+import BlueTitle from '../../../components/BlueTitle';
 import {Input} from 'antd';
 import PropTypes from 'prop-types';
 
 const { TextArea } = Input;
 
 function Hospital({
-    createdAt,
-    hospitalId,
-    hospitalName,
-    docter,
-    note
+    hospitalDetail
 }) {
     return (
         <React.Fragment>
@@ -22,13 +18,13 @@ function Hospital({
                 <section className="col-6">
                     <BlueTitle>- Ngày tạo:
                     </BlueTitle>
-                    <Input className="mx-3 mt-1" value={createdAt}/>
+                    <Input className="mx-3 mt-1" value={hospitalDetail.createdAt}/>
                 </section>
 
                 <section className="col-6">
                     <BlueTitle>- ID:
                     </BlueTitle>
-                    <Input className="mx-3 mt-1" value={hospitalId}/>
+                    <Input className="mx-3 mt-1" value={hospitalDetail.hospitalId}/>
                 </section>
             </section>
 
@@ -36,7 +32,7 @@ function Hospital({
                 <section className="col-12">
                     <BlueTitle>- Tên bệnh viện:
                     </BlueTitle>
-                    <Input className="mx-3 mt-1" value={hospitalName}/>
+                    <Input className="mx-3 mt-1" value={hospitalDetail.hospitalName}/>
                 </section>
             </section>
 
@@ -45,16 +41,15 @@ function Hospital({
                 <section className="col-12">
                     <BlueTitle>- Bác sĩ:
                     </BlueTitle>
-                    <Input className="mx-3 mt-1" value={docter}/>
+                    <Input className="mx-3 mt-1" value={hospitalDetail.docter}/>
                 </section>
             </section>
 
             <section className="row mb-3">
-
                 <section className="col-12">
                     <BlueTitle>- Ghi chú:
                     </BlueTitle>
-                    <TextArea rows='4' className="mx-3 mt-1" value={note}/>
+                    <TextArea rows='4' className="mx-3 mt-1" value={hospitalDetail.note}/>
                 </section>
             </section>
         </React.Fragment>
@@ -62,19 +57,11 @@ function Hospital({
 }
 
 Hospital.propTypes = {
-    createdAt: PropTypes.string.isRequired,
-    hospitalId: PropTypes.string.isRequired,
-    hospitalName: PropTypes.string.isRequired,
-    docter: PropTypes.string.isRequired,
-    note: PropTypes.string.isRequired
+    hospitalDetail: PropTypes.object,
 }
 
 Hospital.defaultProps = {
-    createdAt: '31/12/2019',
-    hospitalId: 'BV190197',
-    hospitalName: 'Bệnh viện quận Tân Phú',
-    docter: 'Phan Thế Anh',
-    note:''
+    hospitalDetail: {}
 }
 
 export default Hospital;

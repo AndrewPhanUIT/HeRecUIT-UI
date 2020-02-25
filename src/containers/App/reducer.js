@@ -23,8 +23,10 @@ import {
     QUERY_DIAGNOSIS_DETAIL,
     QUERY_DIAGNOSIS_DETAIL_SUCCESS,
     QUERY_DIAGNOSIS_DETAIL_ERROR,
+    SELECT_ITEM,
 } from './constants';
 import {ACCESS_TOKEN, USER_INFO} from "../../constants/constants";
+import {isEmpty} from 'lodash';
 
 export const initialState = {
     userInfo: null,
@@ -40,11 +42,12 @@ export const initialState = {
     diagnosisDetailLoading: false,
     appointmentDetail: null,
     appointmentDetailLoading: false,
-    error: ''
+    error: '',
+    selectedItem: null,
+    loadingAddNewRecord: false,
 };
 
 const globalState = (state = initialState, action) => {
-    const resultState = null;
     switch (action.type) {
             // Login
         case LOGIN:
@@ -247,6 +250,12 @@ const globalState = (state = initialState, action) => {
                     error: action.error
                 }
             }
+        case SELECT_ITEM: {
+            return {
+                ...state,
+                selectedItem: isEmpty(action.queryType ) ? null : { queryType: action.queryType, key: action.key},
+            };
+        }
         default:
             return state;
     }

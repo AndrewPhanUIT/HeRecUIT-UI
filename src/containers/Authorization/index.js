@@ -19,10 +19,6 @@ const ContentWrapper = styled.section `
 
 class Authorization extends Component {
 
-    constructor(props){
-        super(props);
-    }
-
     componentDidMount() {
         const { userInfo, history } = this.props;
         if(userInfo ) {

@@ -32,6 +32,7 @@ const selectAppointmentDetail = () => createSelector(selectGlobal, global => glo
 
 const selectAppointmentDetailLoading = () => createSelector(selectGlobal, global => global.appointmentDetailLoading,);
 
+const selectSelectedItem = () => createSelector(selectGlobal, global => global.selectedItem,);
 
 export {
     selectGlobal,
@@ -48,4 +49,5 @@ export {
     selectDiagnosisDetailLoading,
     selectAppointmentDetail,
     selectAppointmentDetailLoading,
+    selectSelectedItem,
 };

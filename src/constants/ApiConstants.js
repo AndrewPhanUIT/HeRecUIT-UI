@@ -11,6 +11,8 @@ export const API_PUBLIC_URL = {
     queryPermission: '/api/hyperledger/permission?phoneNumber=',
     queryDiagnosisDetail: '/api/hyperledger/diagnosis?',
     queryAppointmentDetail: '/api/hyperledger/appointment?',
+    addNewDiagnosis: '/api/hyperledger/add/diagnosis',
+    addNewAppointment: '/api/hyperledger/add/appointment',
 }
 
 export const API_SECUSE_URL = {

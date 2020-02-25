@@ -21,6 +21,7 @@ class Permission extends Component{
 
     render() {
         const { permisions, permissionsLoading } = this.props;
+        console.log(permisions, permissionsLoading);
         return(
             <React.Fragment>
                 <Helmet>

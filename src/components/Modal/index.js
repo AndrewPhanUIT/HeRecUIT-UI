@@ -8,7 +8,7 @@ function CustomModal({
     children
 }) {
     return (
-        <Modal show={show} size="lg" >
+        <Modal show={show} size="lg" onHide={onHide}>
             <Modal.Header closeButton>
                 <Modal.Title>
                     {title}
@@ -20,7 +20,7 @@ function CustomModal({
             </Modal.Body>
 
             <Modal.Footer>
-                <Button>Đóng</Button>
+                <Button onClick={onHide}>Đóng</Button>
             </Modal.Footer>
         </Modal>
     )

@@ -23,6 +23,7 @@ import {
     QUERY_APPOINTMENT_DETAIL,
     QUERY_APPOINTMENT_DETAIL_SUCCESS,
     QUERY_APPOINTMENT_DETAIL_ERROR,
+    SELECT_ITEM,
 } from './constants';
 
 // Login
@@ -101,6 +102,7 @@ export const queryAppointmentsError = (error) => {
 }
 
 export const queryPermission = (phoneNumber) => {
+    console.log('phoneNumber', phoneNumber);
     return {type: QUERY_PERMISSION, phoneNumber}
 }
 
@@ -134,4 +136,8 @@ export const queryAppointmentDetailSuccess = (appointmentDetail) => {
 
 export const queryAppointmentDetailError = (error) => {
     return {type: QUERY_APPOINTMENT_DETAIL_ERROR, error};
+}
+
+export const selectItem = (queryType, key) => {
+    return {type: SELECT_ITEM, queryType, key};
 }

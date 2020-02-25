@@ -6,6 +6,9 @@ import OrangeButton from '../OrangeButton';
 import Wrapper from './Wrapper';
 
 import './style.css';
+import { selectItem } from '../../containers/App/actions';
+import { createStructuredSelector } from 'reselect';
+import { connect } from 'react-redux';
 
 const H5 = styled.h5 `
     font-weight: bold;
@@ -30,7 +33,7 @@ class Summary extends React.Component {
         let lst = [];
         let i = 1;
         Object.keys(data).forEach(key => {
-            if(key !== 'src' && key !== 'title' &&  key !== 'createdAt' && key !== 'isExpired' ){
+            if(key !== 'src' && key !== 'title' &&  key !== 'createdAt' && key !== 'isExpired' && key !== 'type') {
                 lst.push(
                     <P key={i}>
                         <b>{data[key].title}</b>
@@ -46,9 +49,13 @@ class Summary extends React.Component {
         </React.Fragment>;    
     }
 
+    handleSelectItem = (type, key) => {
+        const { selectItem } = this.props;
+        selectItem(type, key);
+    }
+
     render(){
         const {data} = this.props;
-        
         return (
             <Wrapper className="container-fluid">
                 <section className="row">
@@ -72,7 +79,7 @@ class Summary extends React.Component {
                         <P>
                             <b>Ngày tạo: </b>
                             {data.createdAt}</P>
-                        <OrangeButton text="Chi tiết"/>
+                        <OrangeButton text="Chi tiết" onClick={()=>this.handleSelectItem(data.type, data.key)} />
                         {
                             data.isExpired && (
                                 data.isExpired ? (
@@ -88,11 +95,24 @@ class Summary extends React.Component {
 }
 
 Summary.propTypes = {
-    data: PropTypes.object.isRequired
+    data: PropTypes.object.isRequired,
+    selectItem: PropTypes.func,
 }
 
 Summary.defaultProps = {
     data: {}
 }
 
-export default Summary;
+const mapStateToProps = createStructuredSelector({
+
+});
+
+const mapDispatchToProps = dispatch => {
+    return {
+        selectItem(type, key) {
+            dispatch(selectItem(type, key));
+        }
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Summary);

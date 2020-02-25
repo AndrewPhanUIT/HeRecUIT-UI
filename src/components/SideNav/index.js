@@ -1,5 +1,5 @@
 import React from 'react';
-import {Layout, Spin} from 'antd';
+import {Layout} from 'antd';
 import {useState} from 'react';
 
 import './style.css';
@@ -26,10 +26,6 @@ function SideNav({children, diagnosisLoading, appointmentsLoading}) {
 
     return (
 
-        <Spin
-            spinning={diagnosisLoading || appointmentsLoading}
-            tip="Đang tải dữ liệu..."
-            size="large">
             <Layout
                 className={!state.collapsed
                 ? "un-collapsed"
@@ -51,7 +47,6 @@ function SideNav({children, diagnosisLoading, appointmentsLoading}) {
                     {children}
                 </Content>
             </Layout>
-        </Spin>
     )
 }
 

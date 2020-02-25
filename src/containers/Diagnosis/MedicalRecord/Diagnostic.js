@@ -1,26 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import TitleRectangle from '../../components/TitleRectangle';
-import BlueTitle from '../../components/BlueTitle';
 import {Input} from 'antd';
-
+import TitleRectangle from '../../../components/TitleRectangle';
+import BlueTitle from '../../../components/BlueTitle';
 const {TextArea} = Input;
-
-const defaultDocter = {
-    id: 'TP001',
-    name: 'Phan Thế Anh'
-};
-
-const defaultSymptom = ["Ho nhẹ", "Phát ban đỏ"];
 
 const Wrapper = styled.section `
 
 `;
 
-function Diagnostic({dateTime, docter, symptom, allergy}) {
+function Diagnostic({ diagnosticDetail }) {
+    const {dateTime, docter, symptom, allergy} = diagnosticDetail;
 
     const lstSympton = symptom.map(val=>"- " + val).join('\n');
+    const lstAllergy = allergy.map(val => {
+        return '- ' + Object.keys(val).reduce((result, item) => {
+            return [...result, val[item]];
+        }, []).join(' + ');
+    }).join('\n');
 
     return (
         <React.Fragment>
@@ -29,8 +27,6 @@ function Diagnostic({dateTime, docter, symptom, allergy}) {
                 </section>
 
             <Wrapper>
-                
-
                 <section className="row mb-3">
                     <section className="col-6">
                         <BlueTitle>- Mã bác sĩ:
@@ -65,7 +61,7 @@ function Diagnostic({dateTime, docter, symptom, allergy}) {
                     <section className="col-12">
                         <BlueTitle>- Tình trạng dị ứng:
                         </BlueTitle>
-                        <TextArea rows='6' className="mx-3 mt-1" value={''}/>
+                        <TextArea rows='6' className="mx-3 mt-1" value={lstAllergy}/>
                     </section>
                 </section>
             </Wrapper>
@@ -74,16 +70,11 @@ function Diagnostic({dateTime, docter, symptom, allergy}) {
 }
 
 Diagnostic.propTypes = {
-    dateTime: PropTypes.string.isRequired,
-    docter: PropTypes.object.isRequired,
-    symptom: PropTypes.array.isRequired,
-    allergy: PropTypes.array
+    diagnosticDetail: PropTypes.object,
 }
 
 Diagnostic.defaultProps = {
-    dateTime: '31/12/2019',
-    docter: defaultDocter,
-    symptom: defaultSymptom
+    diagnosticDetail: {}
 }
 
 export default Diagnostic;

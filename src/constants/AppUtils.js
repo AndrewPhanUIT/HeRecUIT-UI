@@ -58,6 +58,13 @@ export const isExpired = (dateString) => {
     return false;
 }
 
+export const diffDay = (startDate, endDate) => {
+    var pattern = /(\d{4})(\d{2})(\d{2})/;
+    var day1 = new Date(startDate.replace(pattern,'$1-$2-$3'));
+    var day2 = new Date(endDate.replace(pattern,'$1-$2-$3'));
+    return (day2.getTime() - day1.getTime()) / (1000 * 3600 * 24);
+}
+
 export const formatDateTime = (dateTimeString) => {
     let date = new Date(dateTimeString);
     let monthIndex = date.getMonth();

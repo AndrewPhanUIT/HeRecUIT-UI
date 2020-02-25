@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Divider, Input } from 'antd';
-import BlueTitle from '../../components/BlueTitle';
+import BlueTitle from '../../../components/BlueTitle';
+import { diffDay } from '../../../constants/AppUtils';
 
 const {TextArea} = Input;
 
 function PrescriptionDetail({
-    name, quantityPerDay, totalDay, note
+    name, doseQuantity, quantity, note, endDate, startDate,
 }) {
+    const totalDay = diffDay(startDate, endDate);
     return (
         <React.Fragment>
             <Divider/>
@@ -24,7 +26,7 @@ function PrescriptionDetail({
                 <section className="col-6">
                     <BlueTitle>- Số lượng/thời gian:
                     </BlueTitle>
-                    <Input className="mx-3 mt-1" value={quantityPerDay}/>
+                    <Input className="mx-3 mt-1" value={doseQuantity}/>
                 </section>
 
                 <section className="col-6">

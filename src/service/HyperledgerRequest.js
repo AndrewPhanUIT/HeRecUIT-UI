@@ -38,6 +38,7 @@ export const queryPermissionRequest = (phoneNumber) => {
 }
 
 export const queryDiagnosisDetailRequest = (hyperledgerName, key) => {
+    console.log(hyperledgerName, key);
     const resp = request({
         url: API_BASE_URL + API_PUBLIC_URL.queryDiagnosisDetail + `hyperledgerName=${hyperledgerName}&key=${key}`,
         method: 'GET',

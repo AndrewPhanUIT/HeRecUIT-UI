@@ -8,7 +8,6 @@ import {connect} from 'react-redux';
 import {USER_INFO} from '../../constants/constants';
 import {isEmpty} from 'lodash';
 import {formatDate, isExpired} from '../../constants/AppUtils';
-import {Spin} from 'antd';
 
 class Appointment extends Component {
 
@@ -41,7 +40,9 @@ class Appointment extends Component {
                     appointmentDate: {
                         title: 'Ngày hẹn: ',
                         text: appointmentDate
-                    }
+                    },
+                    type: 'appointment',
+                    key: d.key,
                 };
                 result.push(tmp);
             });
@@ -50,7 +51,7 @@ class Appointment extends Component {
     }
 
     render() {
-        const {appointments, appointmentsLoading} = this.props;
+        const {appointments} = this.props;
         const appointmentSummaries = this.transferInfo(appointments);
         return (
 

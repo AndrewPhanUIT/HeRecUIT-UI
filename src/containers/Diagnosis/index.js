@@ -6,7 +6,6 @@ import {createStructuredSelector} from 'reselect';
 import {queryDiagnosis} from '../App/actions';
 import {connect} from 'react-redux';
 import {USER_INFO} from '../../constants/constants';
-import {Spin} from 'antd';
 import {formatDate} from '../../constants/AppUtils';
 import {isEmpty} from 'lodash';
 
@@ -34,7 +33,9 @@ class Diagnosis extends Component {
                     docter: {
                         title: 'Bác sĩ: ',
                         text: d.diagnosis.clincian
-                    }
+                    },
+                    type: 'diagnosis',
+                    key: d.key,
                 }
                 result.push(tmp);
             });
@@ -43,7 +44,7 @@ class Diagnosis extends Component {
     }
 
     render() {
-        const {diagnosis, diagnosisLoading} = this.props;
+        const {diagnosis} = this.props;
         const diagnosisSummaries = this.transferInfo(diagnosis);
         return (
             <div>

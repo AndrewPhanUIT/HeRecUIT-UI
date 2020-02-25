@@ -1,6 +1,6 @@
 import React from 'react';
-import TitleRectangle from '../../components/TitleRectangle';
-import BlueTitle from '../../components/BlueTitle';
+import TitleRectangle from '../../../components/TitleRectangle';
+import BlueTitle from '../../../components/BlueTitle';
 import {Input} from 'antd';
 import PropTypes from 'prop-types';
 import PrescriptionDetail from './PrescriptionDetail';
@@ -15,9 +15,9 @@ const defaultData = [
 ]
 
 function Prescription({
-    pharmacist,
-    data
+    prescriptionDetail
 }) {
+    const { pharmacist, data } = prescriptionDetail;
 
     const lstMedicine = data.map((val,index)=>
         <PrescriptionDetail
@@ -39,22 +39,17 @@ function Prescription({
                     <Input className="mx-3 mt-1" value={pharmacist}/>
                 </section>
             </section>
-
-            {
-                lstMedicine
-            }
+            {lstMedicine}
         </React.Fragment>
     )
 }
 
 Prescription.propTypes = {
-    pharmacist: PropTypes.string.isRequired,
-    data: PropTypes.array.isRequired
+    prescriptionDetail: PropTypes.object,
 }
 
 Prescription.defaultProps = {
-    pharmacist: 'Phan Thế Anh',
-    data: defaultData
+    prescriptionDetail: {}
 }
 
 export default Prescription;

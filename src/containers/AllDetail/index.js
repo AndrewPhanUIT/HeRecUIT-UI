@@ -7,7 +7,6 @@ import {query} from '../App/actions';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
 import {USER_INFO} from '../../constants/constants';
-import {Spin} from 'antd';
 import {isEmpty} from 'lodash';
 import {formatDate, isExpired} from '../../constants/AppUtils';
 
@@ -35,7 +34,9 @@ class AllDetail extends Component {
                     docter: {
                         title: 'Bác sĩ: ',
                         text: d.diagnosis.clincian
-                    }
+                    },
+                    type: 'diagnosis',
+                    key: d.key,
                 }
                 result.push(tmp);
             });
@@ -61,7 +62,9 @@ class AllDetail extends Component {
                     appointmentDate: {
                         title: 'Ngày hẹn: ',
                         text: appointmentDate
-                    }
+                    },
+                    type: 'appointment',
+                    key: d.key,
                 };
                 result.push(tmp);
             });
@@ -71,7 +74,7 @@ class AllDetail extends Component {
 
     renderList = (dianosisAndAppointments) => {
         return dianosisAndAppointments.map((val, index) => {
-            return (<Summary key={index} data={val}/>)
+            return (<Summary key={index} data={val} />)
         });
     }
 
