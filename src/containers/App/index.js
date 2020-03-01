@@ -4,12 +4,12 @@ import Authorization from '../Authorization';
 import Helmet from 'react-helmet';
 import PatientInfo from '../PatientInfo';
 import Permission from '../Permission';
-import { selectDiagnosisLoading, selectAppointmentsLoading } from './selectors';
+import { selectDiagnosisLoading, selectAppointmentsLoading, selectLoadingAddPermission } from './selectors';
 import { connect } from 'react-redux';
 import { Spin } from 'antd';
 import { createStructuredSelector } from 'reselect';
 
-function App({diagnosisLoading, appointmentLoading}) {
+function App({diagnosisLoading, appointmentLoading, loadingAddPermission}) {
 
     return (
         <main>
@@ -19,7 +19,7 @@ function App({diagnosisLoading, appointmentLoading}) {
             />
                  
             <Spin
-                spinning={diagnosisLoading || appointmentLoading}
+                spinning={diagnosisLoading || appointmentLoading || loadingAddPermission}
                 tip="Đang tải dữ liệu..."
                 size="large"
             >
@@ -38,7 +38,8 @@ function App({diagnosisLoading, appointmentLoading}) {
 
 const mapStateToProps = createStructuredSelector({
    diagnosisLoading: selectDiagnosisLoading(),
-   appointmentLoading: selectAppointmentsLoading(), 
+   appointmentLoading: selectAppointmentsLoading(),
+   loadingAddPermission: selectLoadingAddPermission(),
 });
 
 export default connect(mapStateToProps, null)(App);

@@ -55,3 +55,36 @@ export const queryAppointmentDetailRequest = (hyperledgerName, key) => {
     });
     return resp;
 }
+
+export const addNewDiagnosisRequest = json => {
+    let tempJson = JSON.stringify(json) + "";
+    let temp = tempJson.replace(/\\n\s*/g, '');
+    temp = temp.replace(/\\t\s*/g, '');
+    temp = temp.replace(/\\"\s*/g, '"');
+    const resp = request({
+        url: API_BASE_URL + API_PUBLIC_URL.addNewDiagnosis,
+        method: 'POST',
+        body: temp,
+    });
+    return resp;
+}
+
+export const addNewAppointmentRequest = json => {
+    let tempJson = JSON.stringify(json) + "";
+    let temp = tempJson.replace(/\\n\s*/g, '');
+    temp = temp.replace(/\\"\s*/g, '"');
+    const resp = request({
+        url: API_BASE_URL + API_PUBLIC_URL.addNewAppointment,
+        method: 'POST',
+        body: temp,
+    });
+    return resp;
+}
+
+export const addPermissionRequest = (permissionForm) => {
+    return request({
+        url: API_BASE_URL + API_PUBLIC_URL.addPermission,
+        method: 'PUT',
+        body: JSON.stringify(permissionForm)
+    });
+}

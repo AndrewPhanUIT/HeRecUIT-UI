@@ -5,15 +5,6 @@ import {Input} from 'antd';
 import PropTypes from 'prop-types';
 import PrescriptionDetail from './PrescriptionDetail';
 
-const defaultData = [
-    {
-        name: 'Paracetamon',
-        quantityPerDayL: '2 viên / ngày', 
-        totalDay: '3 ngày',
-        note: ''
-    }
-]
-
 function Prescription({
     prescriptionDetail
 }) {
@@ -36,7 +27,7 @@ function Prescription({
                 <section className="col-12">
                     <BlueTitle>- Người cấp thuốc:
                     </BlueTitle>
-                    <Input className="mx-3 mt-1" value={pharmacist}/>
+                    <Input className="mx-3 mt-1" value={pharmacist ? pharmacist.split('#').join(' ') : ''}/>
                 </section>
             </section>
             {lstMedicine}

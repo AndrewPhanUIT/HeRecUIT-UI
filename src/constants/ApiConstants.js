@@ -13,6 +13,7 @@ export const API_PUBLIC_URL = {
     queryAppointmentDetail: '/api/hyperledger/appointment?',
     addNewDiagnosis: '/api/hyperledger/add/diagnosis',
     addNewAppointment: '/api/hyperledger/add/appointment',
+    addPermission: '/api/hyperledger/add/permission',
 }
 
 export const API_SECUSE_URL = {

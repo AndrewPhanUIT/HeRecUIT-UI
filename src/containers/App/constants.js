@@ -40,6 +40,11 @@ export const ADD_APPOINTMENT = "herec/ADD_APPOINTMENT";
 export const ADD_APPOINTMENT_SUCCESS = "herec/ADD_APPOINTMENT_SUCCESS";
 export const ADD_APPOINTMENT_ERROR = "herec/ADD_APPOINTMENT_ERROR";
 
+export const ADD_PERMISSION = "herec/ADD_PERMISSION";
+export const ADD_PERMISSION_SUCCESS = "herec/ADD_PERMISSION_SUCCESS";
+export const ADD_PERMISSION_ERROR = "herec/ADD_PERMISSION_ERROR";
+
+export const CLEAR_ERROR_MESS = "herec/CLEAR_ERROR_MESS";
 
 export const REGEX = {
     email: /^[a-z][a-z0-9_]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/,

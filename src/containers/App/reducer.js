@@ -24,6 +24,16 @@ import {
     QUERY_DIAGNOSIS_DETAIL_SUCCESS,
     QUERY_DIAGNOSIS_DETAIL_ERROR,
     SELECT_ITEM,
+    ADD_DIAGNOSIS,
+    ADD_DIAGNOSIS_SUCCESS,
+    ADD_DIAGNOSIS_ERROR,
+    ADD_APPOINTMENT,
+    ADD_APPOINTMENT_SUCCESS,
+    ADD_APPOINTMENT_ERROR,
+    CLEAR_ERROR_MESS,
+    ADD_PERMISSION,
+    ADD_PERMISSION_SUCCESS,
+    ADD_PERMISSION_ERROR,
 } from './constants';
 import {ACCESS_TOKEN, USER_INFO} from "../../constants/constants";
 import {isEmpty} from 'lodash';
@@ -45,6 +55,7 @@ export const initialState = {
     error: '',
     selectedItem: null,
     loadingAddNewRecord: false,
+    loadingAddPermission: false,
 };
 
 const globalState = (state = initialState, action) => {
@@ -255,6 +266,57 @@ const globalState = (state = initialState, action) => {
                 ...state,
                 selectedItem: isEmpty(action.queryType ) ? null : { queryType: action.queryType, key: action.key},
             };
+        }
+        case ADD_DIAGNOSIS: 
+        case ADD_APPOINTMENT: {
+            return {
+                ...state,
+                loadingAddNewRecord: true,
+                error: '',
+            }
+        }
+        case ADD_DIAGNOSIS_SUCCESS: 
+        case ADD_APPOINTMENT_SUCCESS: {
+            return {
+                ...state,
+                loadingAddNewRecord: false,
+                error: '',
+            }
+        }
+        case ADD_DIAGNOSIS_ERROR:
+        case ADD_APPOINTMENT_ERROR: {
+            return {
+                ...state,
+                loadingAddNewRecord: false,
+                error: action.error,
+            }
+        }
+        case CLEAR_ERROR_MESS: {
+            return {
+                ...state,
+                error: '',
+            }
+        }
+        case ADD_PERMISSION: {
+            return {
+                ...state,
+                error: '',
+                loadingAddPermission: true,
+            }
+        }
+        case ADD_PERMISSION_SUCCESS: {
+            return {
+                ...state,
+                error: '',
+                loadingAddPermission: false,
+            }
+        }
+        case ADD_PERMISSION_ERROR: {
+            return {
+                ...state,
+                error: action.error,
+                loadingAddPermission: false,
+            }
         }
         default:
             return state;

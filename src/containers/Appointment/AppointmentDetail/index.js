@@ -18,10 +18,6 @@ import { isEmpty } from 'lodash';
 
 class AppointmentDetail extends Component {
     
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {
         const { queryAppointmentDetail, selectedItem } = this.props;
         const userInfo = JSON.parse(sessionStorage.getItem(USER_INFO));
@@ -32,6 +28,10 @@ class AppointmentDetail extends Component {
         const { appointmentDetail, appointmentDetailLoading } = this.props;
         if (appointmentDetailLoading || isEmpty(appointmentDetail)) return <div></div>
         const { appointment } = appointmentDetail;
+        const transformedAppointment = { ...appointment };
+        Object.keys(appointment).forEach(key => {
+            transformedAppointment[key] = appointment[key] ? appointment[key].split('#').join(' ') : '';
+        });
         return (
             <React.Fragment>
                 <section className="container-fluid">
@@ -42,32 +42,32 @@ class AppointmentDetail extends Component {
                         <section className="col-6">
                             <BlueTitle>- Ngày tạo:
                             </BlueTitle>
-                            <Input className="mx-3 mt-1" value={formatDate(appointment.createdAt)}/>
+                            <Input className="mx-3 mt-1" value={formatDate(transformedAppointment.createdAt)}/>
                         </section>
 
                         <section className="col-6">
                             <BlueTitle>- Bác sĩ đảm nhận:
                             </BlueTitle>
-                            <Input className="mx-3 mt-1" value={appointment.clincian}/>
+                            <Input className="mx-3 mt-1" value={transformedAppointment.clincian}/>
                         </section>
                     </section>
                     <section className="row mb-3">
                         <section className="col-12">
                             <BlueTitle>- Nơi khám bệnh:
                             </BlueTitle>
-                            <Input className="mx-3 mt-1" value={appointment.organization}/>
+                            <Input className="mx-3 mt-1" value={transformedAppointment.organization}/>
                         </section>
                     </section>
                     <section className="row mb-3">
                         <section className="col-6">
                             <BlueTitle>- Ngày hẹn:
                             </BlueTitle>
-                            <Input className="mx-3 mt-1" value={formatDate(appointment.appointmentDate)}/>
+                            <Input className="mx-3 mt-1" value={formatDate(transformedAppointment.appointmentDate)}/>
                         </section>
                         <section className="col-6 align-self-center">
                             <BlueTitle>- Tình trạng
                             </BlueTitle> <br/>
-                            <Tag color="#FF8C00"> {isExpired(appointment.appointmentDate) ? 'Đã hết hạn' : ''}
+                            <Tag color="red"> {isExpired(transformedAppointment.appointmentDate) ? 'Đã hết hạn' : ''}
                             </Tag>
                         </section>
                     </section>
@@ -75,7 +75,7 @@ class AppointmentDetail extends Component {
                         <section className="col-12">
                             <BlueTitle>- Ghi chú:
                             </BlueTitle>
-                            <TextArea rows='4' className="mx-3 mt-1" value={appointment.note ? appointment.note : 'Vui lòng đến vào giờ hành chính'}/>
+                            <TextArea rows='4' className="mx-3 mt-1" value={transformedAppointment.note ? transformedAppointment.note : 'Vui lòng đến vào giờ hành chính'}/>
                         </section>
                     </section>
                 </section>

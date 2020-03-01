@@ -13,10 +13,10 @@ const Wrapper = styled.section `
 function Diagnostic({ diagnosticDetail }) {
     const {dateTime, docter, symptom, allergy} = diagnosticDetail;
 
-    const lstSympton = symptom.map(val=>"- " + val).join('\n');
+    const lstSympton = symptom.map(val=>"- " + val.split('#').join(' ')).join('\n');
     const lstAllergy = allergy.map(val => {
         return '- ' + Object.keys(val).reduce((result, item) => {
-            return [...result, val[item]];
+            return [...result, val[item].split('#').join(' ')];
         }, []).join(' + ');
     }).join('\n');
 
@@ -37,7 +37,7 @@ function Diagnostic({ diagnosticDetail }) {
                     <section className="col-6">
                         <BlueTitle>- Tên bác sĩ:
                         </BlueTitle>
-                        <Input className="mx-3 mt-1" value={docter.name}/>
+                        <Input className="mx-3 mt-1" value={docter.name ? docter.name.split('#').join(' ') : ''}/>
                     </section>
                 </section>
 

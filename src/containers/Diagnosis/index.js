@@ -21,23 +21,25 @@ class Diagnosis extends Component {
         const result = [];
         if (!isEmpty(diagnosis)) {
             diagnosis.forEach(d => {
-                const createdAt = formatDate(d.diagnosis.createdAt);
-                const tmp = {
-                    src: PILL_ICON,
-                    title: 'Kết quả khám bệnh ngày ' + createdAt,
-                    createdAt,
-                    hospital: {
-                        title: 'Bệnh viện: ',
-                        text: d.diagnosis.organization
-                    },
-                    docter: {
-                        title: 'Bác sĩ: ',
-                        text: d.diagnosis.clincian
-                    },
-                    type: 'diagnosis',
-                    key: d.key,
+                if (d.diagnosis) {
+                    const createdAt = formatDate(d.diagnosis.createdAt);
+                    const tmp = {
+                        src: PILL_ICON,
+                        title: 'Kết quả khám bệnh ngày ' + createdAt,
+                        createdAt,
+                        hospital: {
+                            title: 'Bệnh viện: ',
+                            text: d.diagnosis.organization
+                        },
+                        docter: {
+                            title: 'Bác sĩ: ',
+                            text: d.diagnosis.clincian
+                        },
+                        type: 'diagnosis',
+                        key: d.key,
+                    }
+                    result.push(tmp);
                 }
-                result.push(tmp);
             });
         }
         return result;

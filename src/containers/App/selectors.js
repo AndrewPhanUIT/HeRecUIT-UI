@@ -34,6 +34,12 @@ const selectAppointmentDetailLoading = () => createSelector(selectGlobal, global
 
 const selectSelectedItem = () => createSelector(selectGlobal, global => global.selectedItem,);
 
+const selectError = () => createSelector(selectGlobal, global => global.error,);
+
+const selectLoadingAddNewRecord = () => createSelector(selectGlobal, global => global.loadingAddNewRecord,);
+
+const selectLoadingAddPermission = () => createSelector(selectGlobal, global => global.loadingAddPermission,);
+
 export {
     selectGlobal,
     selectUserInfo,
@@ -50,4 +56,7 @@ export {
     selectAppointmentDetail,
     selectAppointmentDetailLoading,
     selectSelectedItem,
+    selectError,
+    selectLoadingAddNewRecord,
+    selectLoadingAddPermission,
 };

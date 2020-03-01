@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { Switch, Icon, Table, Spin } from 'antd';
-
-
+import { Switch, Icon, Table, Spin, message } from 'antd';
+import { USER_INFO } from '../../constants/constants';
 
 class WidgetTable extends Component {
-    
     constructor(props) {
         super(props);
         this.state = {
@@ -25,6 +23,7 @@ class WidgetTable extends Component {
                             checkedChildren={<Icon type="check" />}
                             unCheckedChildren={<Icon type="close" />}
                             defaultChecked={permissioned}
+                            disabled={permissioned}
                         />
                     ),
                 }
@@ -33,6 +32,14 @@ class WidgetTable extends Component {
     }
 
     changeSwitch = (e, orgName, permissioned) => {
+        if(!permissioned) {
+            const { addPermission } = this.props;
+            const userInfo = JSON.parse(sessionStorage.getItem(USER_INFO));
+            const { phoneNumber } = userInfo;
+            addPermission(orgName.toLowerCase(), phoneNumber);
+        } else {
+            message.error('Chưa hỗ trợ chức năng revoke phân quyền');
+        }
     }
 
     render() {

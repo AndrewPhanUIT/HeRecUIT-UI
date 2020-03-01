@@ -37,7 +37,7 @@ class Summary extends React.Component {
                 lst.push(
                     <P key={i}>
                         <b>{data[key].title}</b>
-                        {data[key].text}
+                        {data[key].text ? data[key].text.split('#').join(' ') : ''}
                     </P>
                 );
                 i++;

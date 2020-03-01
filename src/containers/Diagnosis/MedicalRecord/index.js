@@ -13,10 +13,6 @@ import { isEmpty } from 'lodash';
 
 class MedicalRecord extends Component{
 
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {
         const { queryDiagnosisDetail, selectedItem } = this.props;
         const userInfo = JSON.parse(sessionStorage.getItem(USER_INFO));

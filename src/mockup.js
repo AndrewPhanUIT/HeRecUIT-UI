@@ -3,7 +3,7 @@ export const QUAN12_DIAGNOSIS = `{
     "patientPhoneNumber": "0783550324",
     "createdAt": "20200201",
     "data": {
-        "clincian": "Vũ Mạnh Cường @DT001",
+        "clinician": "Vũ Mạnh Cường @DT001",
         "allergies": [],
         "symptons": [
             "Ho",
@@ -27,7 +27,7 @@ export const TANPHU_DIAGNOSIS = `{
     "patientPhoneNumber": "0783550324",
     "createdAt": "20200201",
     "data": {
-        "clincian": {
+        "clinician": {
     		"id": "DT001",
         	"name": "Vu Manh Cuong"
         },
@@ -50,7 +50,7 @@ export const QUAN12_APPOINTMENT = `{
     "code": "quan12",
     "patientPhoneNumber": "0783550324",
     "data": {
-        "clincian": "Vũ Mạnh Cường@DT001",
+        "clinician": "Vũ Mạnh Cường@DT001",
         "createdAt": "20200101",
         "appointmentDate": "20200120"
     }
@@ -60,7 +60,7 @@ export const TANPHU_APPOINTMENT = `{
     "code": "tanphu",
     "patientPhoneNumber": "0783550324",
     "data": {
-        "clincian": "Vũ Mạnh Cường@DT001",
+        "clinician": "Vũ Mạnh Cường@DT001",
         "createdAt": "20200101",
         "appointmentDate": "20200120"
     }

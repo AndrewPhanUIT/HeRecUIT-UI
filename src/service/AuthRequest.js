@@ -28,22 +28,3 @@ export const test = json => {
     }).then(res => res.json);
 }
 
-export const addNewDiagnosisRequest = json => {
-    let tempJson = JSON.stringify(json) + "";
-    let temp = tempJson.replace(/\\n\s*/g, '');
-    temp = temp.replace(/\\"\s*/g, '"');
-    return fetch(API_BASE_URL + API_PUBLIC_URL.addNewDiagnosis, {
-        method: 'POST',
-        body: temp
-    }).then(res => res.json);
-}
-
-export const addNewAppointmentRequest = json => {
-    let tempJson = JSON.stringify(json) + "";
-    let temp = tempJson.replace(/\\n\s*/g, '');
-    temp = temp.replace(/\\"\s*/g, '"');
-    return fetch(API_BASE_URL + API_PUBLIC_URL.addNewAppointment, {
-        method: 'POST',
-        body: temp
-    }).then(res => res.json);
-}

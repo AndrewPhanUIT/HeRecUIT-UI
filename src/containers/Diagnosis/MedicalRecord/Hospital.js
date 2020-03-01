@@ -9,6 +9,10 @@ const { TextArea } = Input;
 function Hospital({
     hospitalDetail
 }) {
+    const transformedHospitalDetail = { ...hospitalDetail };
+    Object.keys(hospitalDetail).forEach(key => {
+        transformedHospitalDetail[key] = hospitalDetail[key] ? hospitalDetail[key].split('#').join(' ') : '';
+    });
     return (
         <React.Fragment>
             <section className="row">
@@ -18,13 +22,13 @@ function Hospital({
                 <section className="col-6">
                     <BlueTitle>- Ngày tạo:
                     </BlueTitle>
-                    <Input className="mx-3 mt-1" value={hospitalDetail.createdAt}/>
+                    <Input className="mx-3 mt-1" value={transformedHospitalDetail.createdAt}/>
                 </section>
 
                 <section className="col-6">
                     <BlueTitle>- ID:
                     </BlueTitle>
-                    <Input className="mx-3 mt-1" value={hospitalDetail.hospitalId}/>
+                    <Input className="mx-3 mt-1" value={transformedHospitalDetail.hospitalId}/>
                 </section>
             </section>
 
@@ -32,7 +36,7 @@ function Hospital({
                 <section className="col-12">
                     <BlueTitle>- Tên bệnh viện:
                     </BlueTitle>
-                    <Input className="mx-3 mt-1" value={hospitalDetail.hospitalName}/>
+                    <Input className="mx-3 mt-1" value={transformedHospitalDetail.hospitalName}/>
                 </section>
             </section>
 
@@ -41,7 +45,7 @@ function Hospital({
                 <section className="col-12">
                     <BlueTitle>- Bác sĩ:
                     </BlueTitle>
-                    <Input className="mx-3 mt-1" value={hospitalDetail.docter}/>
+                    <Input className="mx-3 mt-1" value={transformedHospitalDetail.docter}/>
                 </section>
             </section>
 
@@ -49,7 +53,7 @@ function Hospital({
                 <section className="col-12">
                     <BlueTitle>- Ghi chú:
                     </BlueTitle>
-                    <TextArea rows='4' className="mx-3 mt-1" value={hospitalDetail.note}/>
+                    <TextArea rows='4' className="mx-3 mt-1" value={transformedHospitalDetail.note}/>
                 </section>
             </section>
         </React.Fragment>

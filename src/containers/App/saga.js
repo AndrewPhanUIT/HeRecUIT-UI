@@ -8,6 +8,9 @@ import {
     QUERY_PERMISSION,
     QUERY_DIAGNOSIS_DETAIL,
     QUERY_APPOINTMENT_DETAIL,
+    ADD_APPOINTMENT,
+    ADD_DIAGNOSIS,
+    ADD_PERMISSION,
 } from './constants';
 import {loginRequest, registerRequest} from '../../service/AuthRequest';
 import {
@@ -24,9 +27,11 @@ import {
     queryPermissionSuccess,
     queryPermissionError,
     queryDiagnosisDetailSuccess, queryDiagnosisDetailError,
-    queryAppointmentDetailSuccess, queryAppointmentDetailError,
+    queryAppointmentDetailSuccess, queryAppointmentDetailError, addDiagnosisError, addAppointmentError, addAppointmentSuccess, addDiagnosisSuccess,
+    addPermissionSuccess,
+    addPermissionError,
 } from './actions';
-import {queryRequest, queryDiagnosisRequest, queryAppointmentsRequest, queryPermissionRequest, queryAppointmentDetailRequest, queryDiagnosisDetailRequest} from '../../service/HyperledgerRequest';
+import {queryRequest, queryDiagnosisRequest, queryAppointmentsRequest, queryPermissionRequest, queryAppointmentDetailRequest, queryDiagnosisDetailRequest, addNewDiagnosisRequest, addNewAppointmentRequest, addPermissionRequest} from '../../service/HyperledgerRequest';
 
 // Login
 function * doLogin(action) {
@@ -152,6 +157,56 @@ function * doQueryAppointmentDetailWatcher() {
     yield takeLatest(QUERY_APPOINTMENT_DETAIL, doQueryAppointmentDetail);
 }
 
+function * doAddDiagnosis(action) {
+    const { json } = action;
+    const response = yield call(addNewDiagnosisRequest, json);
+    if (response.success) {
+        yield put(addDiagnosisSuccess());
+    } else {
+        if (response.errorStatus === 400) {
+            yield put(addDiagnosisError("Tổ chức chưa được phân quyền cập nhật trạng thái của bệnh nhân. Vui lòng liên hệ admin!"));
+        } else {
+            yield put(addDiagnosisError(response.message));
+        }
+    }
+}
+
+function * doAddDiagnosisWatcher() {
+    yield takeLatest(ADD_DIAGNOSIS, doAddDiagnosis);
+}
+
+function * doAddAppointment(action) {
+    const { json } = action;
+    const response = yield call(addNewAppointmentRequest, json);
+    if (response.success) {
+        yield put(addAppointmentSuccess());
+    } else {
+        if (response.errorStatus === 400) {
+            yield put(addAppointmentError("Tổ chức chưa được phân quyền cập nhật trạng thái của bệnh nhân. Vui lòng liên hệ admin!"));
+        } else {
+            yield put(addAppointmentError(response.message));
+        }
+       
+    }
+}
+
+function * doAddAppointmentWatcher() {
+    yield takeLatest(ADD_APPOINTMENT, doAddAppointment);
+}
+
+function * doAddPermission(action) {
+    const { orgHyperledgerName, phoneNumber } = action;
+    const permissionForm = { orgHyperledgerName, phoneNumber };
+    const response = yield call(addPermissionRequest, permissionForm);
+    if (response.success) {
+        
+    }
+}
+
+function * doAddPermissionWathcer() {
+    yield takeLatest(ADD_PERMISSION, doAddPermission);
+}
+
 export default function * rootSaga() {
     yield all([
         fork(doLoginWatcher),
@@ -162,5 +217,8 @@ export default function * rootSaga() {
         fork(doQueryPermissionWatcher),
         fork(doQueryDiagnosisDetailWatcher),
         fork(doQueryAppointmentDetailWatcher),
+        fork(doAddDiagnosisWatcher),
+        fork(doAddAppointmentWatcher),
+        fork(doAddPermissionWathcer),
     ]);
 }

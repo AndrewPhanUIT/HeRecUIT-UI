@@ -24,6 +24,16 @@ import {
     QUERY_APPOINTMENT_DETAIL_SUCCESS,
     QUERY_APPOINTMENT_DETAIL_ERROR,
     SELECT_ITEM,
+    ADD_DIAGNOSIS,
+    ADD_DIAGNOSIS_SUCCESS,
+    ADD_DIAGNOSIS_ERROR,
+    ADD_APPOINTMENT,
+    ADD_APPOINTMENT_SUCCESS,
+    ADD_APPOINTMENT_ERROR,
+    CLEAR_ERROR_MESS,
+    ADD_PERMISSION,
+    ADD_PERMISSION_SUCCESS,
+    ADD_PERMISSION_ERROR,
 } from './constants';
 
 // Login
@@ -102,7 +112,6 @@ export const queryAppointmentsError = (error) => {
 }
 
 export const queryPermission = (phoneNumber) => {
-    console.log('phoneNumber', phoneNumber);
     return {type: QUERY_PERMISSION, phoneNumber}
 }
 
@@ -140,4 +149,44 @@ export const queryAppointmentDetailError = (error) => {
 
 export const selectItem = (queryType, key) => {
     return {type: SELECT_ITEM, queryType, key};
+}
+
+export const addDiagnosis = json => {
+    return {type: ADD_DIAGNOSIS, json};
+}
+
+export const addDiagnosisSuccess = () => {
+    return {type: ADD_DIAGNOSIS_SUCCESS};
+}
+
+export const addDiagnosisError = (error) => {
+    return {type: ADD_DIAGNOSIS_ERROR, error};
+}
+
+export const addAppointment = json => {
+    return {type: ADD_APPOINTMENT, json};
+}
+
+export const addAppointmentSuccess = () => {
+    return {type: ADD_APPOINTMENT_SUCCESS};
+}
+
+export const addAppointmentError = (error) => {
+    return {type: ADD_APPOINTMENT_ERROR, error};
+}
+
+export const clearErrorMess = () => {
+    return { type: CLEAR_ERROR_MESS };
+}
+
+export const addPermission = (orgHyperledgerName, phoneNumber) => {
+    return { type: ADD_PERMISSION, orgHyperledgerName, phoneNumber};
+}
+
+export const addPermissionSuccess = () => {
+    return { type: ADD_PERMISSION_SUCCESS };
+}
+
+export const addPermissionError = (error) => {
+    return { type: ADD_PERMISSION_ERROR, error};
 }

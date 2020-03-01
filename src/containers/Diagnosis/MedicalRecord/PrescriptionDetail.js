@@ -18,7 +18,7 @@ function PrescriptionDetail({
                 <section className="col-12">
                     <BlueTitle>- Tên thuốc:
                     </BlueTitle>
-                    <Input className="mx-3 mt-1" value={name}/>
+                    <Input className="mx-3 mt-1" value={name ? name.split('#').join(' ') : ''}/>
                 </section>
             </section>
 
@@ -26,7 +26,7 @@ function PrescriptionDetail({
                 <section className="col-6">
                     <BlueTitle>- Số lượng/thời gian:
                     </BlueTitle>
-                    <Input className="mx-3 mt-1" value={doseQuantity}/>
+                    <Input className="mx-3 mt-1" value={doseQuantity ? doseQuantity.split('#').join(' ') : ''}/>
                 </section>
 
                 <section className="col-6">
@@ -41,7 +41,7 @@ function PrescriptionDetail({
                 <section className="col-12">
                     <BlueTitle>- Ghi chú:
                     </BlueTitle>
-                    <TextArea rows='3' className="mx-3 mt-1" value={note}/>
+                    <TextArea rows='3' className="mx-3 mt-1" value={note ? note.split('#').join(' ') : ''}/>
                 </section>
             </section>
         </React.Fragment>
