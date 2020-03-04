@@ -12,8 +12,12 @@ const Wrapper = styled.section `
 
 function Diagnostic({ diagnosticDetail }) {
     const {dateTime, docter, symptom, allergy} = diagnosticDetail;
-
-    const lstSympton = symptom.map(val=>"- " + val.split('#').join(' ')).join('\n');
+    console.log('symptom', symptom);
+    const lstSympton = symptom.map(val=>{
+        console.log('val', val);
+        return "- " + (val ? val.split('#').join(' ') : '');
+    }).join('\n');
+    // const lstSympton = '';
     const lstAllergy = allergy.map(val => {
         return '- ' + Object.keys(val).reduce((result, item) => {
             return [...result, val[item].split('#').join(' ')];
