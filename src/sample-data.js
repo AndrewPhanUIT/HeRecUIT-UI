@@ -3,8 +3,19 @@ const appoinment = [`{
     "patientPhoneNumber": "0783550324",
     "data": {
         "clinician": "Khoa tai mũi họng",
-        "createdAt": "20191224",
-        "appointmentDate": "20200105"
+        "createdAt": "20200310",
+        "appointmentDate": "20200320"
+    }
+}`, `{
+    "code": "tanphu",
+    "patientPhoneNumber": "0783550324",
+    "data": {
+        "clinician": {
+            "id": "",
+            "name": "Khoa tai mũi họng"
+        },
+        "createdAt": "20200310",
+        "appointmentDate": "20200320"
     }
 }`];
 
@@ -41,7 +52,7 @@ const diagnosis_quan12 = [
                 {
                     "quantity": 21,
                     "doseQuantity": "3 lần / ngày",
-                    "name": "Fumagate - Fort",
+                    "name": "Domperidon",
                     "note": "Mỗi lần 1 viên, Sáng, trưa, chiều (trước ăn 30 phút)",
                     "endDate": "20200123",
                     "startDate": "20200109"

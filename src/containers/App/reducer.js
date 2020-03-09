@@ -34,6 +34,8 @@ import {
     ADD_PERMISSION,
     ADD_PERMISSION_SUCCESS,
     ADD_PERMISSION_ERROR,
+    CHANGE_MENU,
+    CHANGE_QUERY,
 } from './constants';
 import {ACCESS_TOKEN, USER_INFO} from "../../constants/constants";
 import {isEmpty} from 'lodash';
@@ -56,6 +58,8 @@ export const initialState = {
     selectedItem: null,
     loadingAddNewRecord: false,
     loadingAddPermission: false,
+    menuIndex: 1,
+    query: '',
 };
 
 const globalState = (state = initialState, action) => {
@@ -317,6 +321,18 @@ const globalState = (state = initialState, action) => {
                 error: action.error,
                 loadingAddPermission: false,
             }
+        }
+        case CHANGE_MENU: {
+            return {
+                ...state,
+                menuIndex: action.index,
+            };
+        }
+        case CHANGE_QUERY: {
+            return {
+                ...state,
+                query: action.query,
+            };
         }
         default:
             return state;

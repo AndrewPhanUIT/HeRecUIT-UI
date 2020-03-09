@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 import { PageHeader, Tag, Divider, Spin, message } from 'antd';
 import PropTypes from 'prop-types';
 
@@ -15,17 +15,17 @@ import { ACCESS_TOKEN } from '../../constants/constants';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectError, selectLoadingAddNewRecord } from '../../containers/App/selectors';
-import { addDiagnosis, addAppointment, clearErrorMess } from '../../containers/App/actions'
+import { addDiagnosis, addAppointment, clearErrorMess, changeQuery } from '../../containers/App/actions'
 import { isEmpty } from 'lodash';
 import { usePrevious } from '../customHook';
 
 function Header({
     patientName,
-    logout,
     error,
     loadingAddNewRecord,
     addDiagnosis,
     addAppointment,
+    changeQuery,
 }) {
     const [state, setState] = useState({
         title: 'Dữ liệu mẫu',
@@ -37,13 +37,6 @@ function Header({
         rows: 25,
         userInfo: null,
     });
-    // function usePrevious(value) {
-    //     const ref = useRef();
-    //     useEffect(() => {
-    //       ref.current = value;
-    //     });
-    //     return ref.current;
-    // }
     const prevProps = usePrevious({ error, loadingAddNewRecord});
     useEffect(() => {
         if (!isEmpty(error)) {
@@ -109,12 +102,21 @@ function Header({
         });
     }
 
+    const logout = () => {
+        sessionStorage.removeItem(ACCESS_TOKEN);
+        window.location = '/login';
+    }
+
     const changeOrg = (e) => {
         setState({
             ...state,
             org: e.target.value,
             data: mapOrgTypeWithData(e.target.value, state.type),
         });
+    }
+
+    const handleSearch = (value) => {
+        changeQuery(value);
     }
 
     if (!sessionStorage.getItem(ACCESS_TOKEN)) {
@@ -142,7 +144,7 @@ function Header({
                 </LogoutButton>
             ]}
         >
-            <PatientSummary />
+            <PatientSummary onSearch={(value) => handleSearch(value)}/>
 
             <Modal show={state.showModal} onHide={closeModal} size="lg" >
                 <Spin spinning={loadingAddNewRecord} tip="Đang xử lý dữ liệu ..." size="large">
@@ -209,6 +211,9 @@ const mapDispatchToProps = dispatch => {
         },
         clearErrorMess() {
             dispatch(clearErrorMess());
+        },
+        changeQuery(query) {
+            dispatch(changeQuery(query));
         },
     };
 }

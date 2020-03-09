@@ -1,20 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {Layout, Menu, Icon} from 'antd';
 import PropTypes from 'prop-types';
 import { mapMenuKeyToUrlParam } from '../../constants/AppUtils';
 import { withRouter } from 'react-router';
-const {Sider} = Layout;
+import { createStructuredSelector } from 'reselect';
+import { selectMenuIndex } from '../../containers/App/selectors';
+import { changeMenu } from '../../containers/App/actions';
+import { connect } from 'react-redux';
+
+const { Sider } = Layout;
+
 
 function CustomSider({
     collapsed,
     handleCollapse,
     config,
-    history
+    history,
+    menuIndex,
+    changeMenu,
 }) {
-
-    const [state, setState] = useState({
-        menuKey: '1'
-    });
 
     const onCollapse = () => {
         handleCollapse(!collapsed);
@@ -30,9 +34,7 @@ function CustomSider({
     });
 
     const navToNewPage = (key) => {
-        setState({
-            menuKey: key,
-        });
+        changeMenu(key);
         const urlParam = mapMenuKeyToUrlParam(+key);
         history.push(urlParam);
     }
@@ -45,7 +47,7 @@ function CustomSider({
             collapsible
             collapsed={collapsed}
             onCollapse={onCollapse}>
-            <Menu theme="light" onClick={(e)=>navToNewPage(e.key)} mode="inline" selectedKeys={[`${state.menuKey}`]} >
+            <Menu theme="light" onClick={(e)=>navToNewPage(e.key)} mode="inline" selectedKeys={[`${menuIndex}`]} >
                 {listMenu}
             </Menu>
         </Sider>
@@ -55,12 +57,26 @@ function CustomSider({
 CustomSider.propTypes = {
     collapsed: PropTypes.bool.isRequired,
     handleCollapse: PropTypes.func.isRequired,
-    config: PropTypes.array.isRequired
+    config: PropTypes.array.isRequired,
+    menuIndex: PropTypes.number,
 }
 
 CustomSider.defaultProps = {
     collapsed: false,
-    config: Array.from([])
+    config: Array.from([]),
+    menuIndex: 1,
 }
 
-export default withRouter(CustomSider);
+const mapStateToProps = createStructuredSelector({
+    menuIndex: selectMenuIndex(),
+});
+
+const mapDispatchToProps = dispatch => {
+    return {
+        changeMenu(index) {
+            dispatch(changeMenu(index));
+        },
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CustomSider));

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {PHONE_ICON} from '../../images/static';
 import Summary from '../../components/Sumamry';
 import {createStructuredSelector} from 'reselect';
-import {selectAppointments, selectAppointmentsLoading} from '../App/selectors';
+import {selectAppointments, selectAppointmentsLoading, selectQuery } from '../App/selectors';
 import {queryAppointments} from '../App/actions';
 import {connect} from 'react-redux';
 import {USER_INFO} from '../../constants/constants';
@@ -18,6 +18,7 @@ class Appointment extends Component {
     }
 
     transferInfo = (appointments) => {
+        const { queryString } = this.props;
         const result = [];
         if (!isEmpty(appointments)) {
             appointments.forEach(d => {
@@ -47,7 +48,14 @@ class Appointment extends Component {
                 result.push(tmp);
             });
         }
-        return result;
+        result.sort((a, b) => {
+            const arrDate1 = a.createdAt.split('/');
+            const arrDate2 = b.createdAt.split('/');
+            const date1 = new Date(arrDate1[2], arrDate1[1], arrDate1[0]);
+            const date2 = new Date(arrDate2[2], arrDate2[1], arrDate2[0]);
+            return date2.getTime() - date1.getTime();
+        })
+        return result.filter(res => isEmpty(queryString) || (res && res.title && res.title.includes(queryString)));
     }
 
     render() {
@@ -66,7 +74,7 @@ class Appointment extends Component {
     }
 }
 
-const mapStateToProps = createStructuredSelector({appointments: selectAppointments(), appointmentsLoading: selectAppointmentsLoading()})
+const mapStateToProps = createStructuredSelector({appointments: selectAppointments(), appointmentsLoading: selectAppointmentsLoading(), queryString: selectQuery(),})
 
 const mapDispatchToProps = (dispatch) => {
     return {

@@ -29,7 +29,6 @@ function PatientInfo(props){
 
     const renderModalInfo = () => {
         const { selectedItem } = props;
-        console.log('selectedItem', selectedItem);
         if(isEmpty(selectedItem)) {
             return {
                 title: '',

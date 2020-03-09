@@ -10,7 +10,6 @@ function PrivateRoute({
     userInfo, 
     ...rest
 }) {
-    console.log(userInfo);
     return(
         <Route 
             {...rest}

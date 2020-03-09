@@ -183,10 +183,11 @@ function * doAddAppointment(action) {
     } else {
         if (response.errorStatus === 400) {
             yield put(addAppointmentError("Tổ chức chưa được phân quyền cập nhật trạng thái của bệnh nhân. Vui lòng liên hệ admin!"));
+        } else if (response.errorStatus === 500) {
+            yield put(addAppointmentError("Có lỗi xảy ra. Vui lòng liên hệ admin!"));
         } else {
             yield put(addAppointmentError(response.message));
         }
-       
     }
 }
 
@@ -199,7 +200,13 @@ function * doAddPermission(action) {
     const permissionForm = { orgHyperledgerName, phoneNumber };
     const response = yield call(addPermissionRequest, permissionForm);
     if (response.success) {
-        
+        yield put(addPermissionSuccess());
+    } else {
+        if (response.errorStatus === 400) {
+            yield put(addPermissionError("Có lỗi xảy ra. Vui lòng liên hệ admin!"));
+        } else {
+            yield put(addAppointmentError(response.message));
+        }
     }
 }
 

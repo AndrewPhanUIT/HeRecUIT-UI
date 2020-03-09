@@ -46,6 +46,10 @@ export const ADD_PERMISSION_ERROR = "herec/ADD_PERMISSION_ERROR";
 
 export const CLEAR_ERROR_MESS = "herec/CLEAR_ERROR_MESS";
 
+export const CHANGE_MENU = "herec/CHANGE_MENU";
+
+export const CHANGE_QUERY = "herec/CHANGE_QUERY";
+
 export const REGEX = {
     email: /^[a-z][a-z0-9_]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/,
     password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{5,20})/,

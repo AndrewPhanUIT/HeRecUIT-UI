@@ -9,7 +9,6 @@ function Prescription({
     prescriptionDetail
 }) {
     const { pharmacist, data } = prescriptionDetail;
-
     const lstMedicine = data.map((val,index)=>
         <PrescriptionDetail
             key={index} 

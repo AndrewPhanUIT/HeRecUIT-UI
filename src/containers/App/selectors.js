@@ -40,6 +40,10 @@ const selectLoadingAddNewRecord = () => createSelector(selectGlobal, global => g
 
 const selectLoadingAddPermission = () => createSelector(selectGlobal, global => global.loadingAddPermission,);
 
+const selectMenuIndex = () => createSelector(selectGlobal, global => global.menuIndex,);
+
+const selectQuery = () => createSelector(selectGlobal, global => global.query,);
+
 export {
     selectGlobal,
     selectUserInfo,
@@ -59,4 +63,6 @@ export {
     selectError,
     selectLoadingAddNewRecord,
     selectLoadingAddPermission,
+    selectMenuIndex,
+    selectQuery,
 };

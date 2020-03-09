@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {PILL_ICON} from '../../images/static';
 import Summary from '../../components/Sumamry';
-import {selectDiagnosisLoading, selectDiagnosis} from '../App/selectors';
+import {selectDiagnosisLoading, selectDiagnosis, selectQuery} from '../App/selectors';
 import {createStructuredSelector} from 'reselect';
 import {queryDiagnosis} from '../App/actions';
 import {connect} from 'react-redux';
@@ -18,6 +18,7 @@ class Diagnosis extends Component {
     }
 
     transferInfo = (diagnosis) => {
+        const { queryString } = this.props;
         const result = [];
         if (!isEmpty(diagnosis)) {
             diagnosis.forEach(d => {
@@ -42,7 +43,14 @@ class Diagnosis extends Component {
                 }
             });
         }
-        return result;
+        result.sort((a, b) => {
+            const arrDate1 = a.createdAt.split('/');
+            const arrDate2 = b.createdAt.split('/');
+            const date1 = new Date(arrDate1[2], arrDate1[1], arrDate1[0]);
+            const date2 = new Date(arrDate2[2], arrDate2[1], arrDate2[0]);
+            return date2.getTime() - date1.getTime();
+        })
+        return result.filter(res => isEmpty(queryString) || (res && res.title && res.title.includes(queryString)));
     }
 
     render() {
@@ -59,7 +67,7 @@ class Diagnosis extends Component {
     }
 }
 
-const mapStateToProps = createStructuredSelector({diagnosis: selectDiagnosis(), diagnosisLoading: selectDiagnosisLoading()});
+const mapStateToProps = createStructuredSelector({diagnosis: selectDiagnosis(), diagnosisLoading: selectDiagnosisLoading(), queryString: selectQuery(),});
 
 const mapDispathToProps = (dispatch) => {
     return {

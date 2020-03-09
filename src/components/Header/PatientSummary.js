@@ -13,7 +13,7 @@ const Img = styled.img `
     border-radius: 50%;
 `;
 
-function PatientSummary() {
+function PatientSummary({ onSearch }) {
     const userInfo = JSON.parse(sessionStorage.getItem(USER_INFO));
     return (
         <section className="container-fluid">
@@ -42,7 +42,7 @@ function PatientSummary() {
                 <Search
                     placeholder="Nhập từ khóa"
                     enterButton="Tìm kiếm"
-                    onSearch={value => console.log(value)}
+                    onSearch={value => onSearch(value)}
                 />
                 </section>
             </section>

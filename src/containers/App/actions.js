@@ -34,6 +34,8 @@ import {
     ADD_PERMISSION,
     ADD_PERMISSION_SUCCESS,
     ADD_PERMISSION_ERROR,
+    CHANGE_MENU,
+    CHANGE_QUERY,
 } from './constants';
 
 // Login
@@ -189,4 +191,12 @@ export const addPermissionSuccess = () => {
 
 export const addPermissionError = (error) => {
     return { type: ADD_PERMISSION_ERROR, error};
+}
+
+export const changeMenu = (index) => {
+    return { type: CHANGE_MENU, index };
+}
+
+export const changeQuery = (query) => {
+    return { type: CHANGE_QUERY, query };
 }

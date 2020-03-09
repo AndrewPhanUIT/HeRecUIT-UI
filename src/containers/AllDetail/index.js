@@ -2,8 +2,18 @@ import React, {Component} from 'react';
 import {PILL_ICON, PHONE_ICON} from '../../images/static';
 import Summary from '../../components/Sumamry';
 import PropTypes from 'prop-types';
-import {selectDiagnosis, selectDiagnosisLoading, selectAppointments, selectAppointmentsLoading, selectUserInfo} from '../App/selectors';
-import {query} from '../App/actions';
+import {
+    selectDiagnosis,
+    selectDiagnosisLoading, 
+    selectAppointments, 
+    selectAppointmentsLoading, 
+    selectUserInfo, 
+    selectQuery,
+} from '../App/selectors';
+import {
+    query,
+    changeQuery,
+} from '../App/actions';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
 import {USER_INFO} from '../../constants/constants';
@@ -13,12 +23,13 @@ import {formatDate, isExpired} from '../../constants/AppUtils';
 class AllDetail extends Component {
 
     componentDidMount() {
-        const {query} = this.props;
+        const { query } = this.props;
         const userInfo = JSON.parse(sessionStorage.getItem(USER_INFO));
         query(userInfo.hyperledgerName);
     }
 
     transferInfo = (diagnosis, appointments) => {
+        const { queryString } = this.props;
         const result = [];
         if (!isEmpty(diagnosis)) {
             diagnosis.forEach(d => {
@@ -71,7 +82,14 @@ class AllDetail extends Component {
                 result.push(tmp);
             });
         }
-        return result;
+        result.sort((a, b) => {
+            const arrDate1 = a.createdAt.split('/');
+            const arrDate2 = b.createdAt.split('/');
+            const date1 = new Date(arrDate1[2], arrDate1[1], arrDate1[0]);
+            const date2 = new Date(arrDate2[2], arrDate2[1], arrDate2[0]);
+            return date2.getTime() - date1.getTime();
+        });
+        return result.filter(res => isEmpty(queryString) || (res && res.title && res.title.includes(queryString)));
     }
 
     renderList = (dianosisAndAppointments) => {
@@ -83,6 +101,9 @@ class AllDetail extends Component {
     render() {
         const {diagnosis, appointments} = this.props;
         const dianosisAndAppointments = this.transferInfo(diagnosis, appointments);
+        if (isEmpty(dianosisAndAppointments)) {
+            return <div>Không có dữ liệu phù hợp</div>;
+        }
         return <div>{this.renderList(dianosisAndAppointments)}</div>;
     }
 }
@@ -95,13 +116,23 @@ AllDetail.propTypes = {
     userInfo: PropTypes.object
 };
 
-const mapStateToProps = createStructuredSelector({diagnosis: selectDiagnosis(), diagnosisLoading: selectDiagnosisLoading(), appointments: selectAppointments(), appointmentsLoading: selectAppointmentsLoading(), userInfo: selectUserInfo()});
+const mapStateToProps = createStructuredSelector({
+    diagnosis: selectDiagnosis(),
+    diagnosisLoading: selectDiagnosisLoading(),
+    appointments: selectAppointments(),
+    appointmentsLoading: selectAppointmentsLoading(),
+    userInfo: selectUserInfo(),
+    queryString: selectQuery(),
+});
 
 const mapDispatchToProps = (dispatch) => {
     return {
         query(hyperledgerName) {
             dispatch(query(hyperledgerName));
-        }
+        },
+        resetQueryString() {
+            dispatch(changeQuery(""));
+        },
     }
 };
 

@@ -53,7 +53,6 @@ class MedicalRecord extends Component{
 
     render() {
         const { diagnosisDetail, diagnosisDetailLoading } = this.props;
-        console.log(diagnosisDetail, diagnosisDetailLoading);
         if (diagnosisDetailLoading || isEmpty(diagnosisDetail)) return <div></div>;
         const { hospitalDetail, diagnosticDetail, prescriptionDetail } = this.transformDiagnosis(diagnosisDetail);
         return (
